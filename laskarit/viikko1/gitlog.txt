@@ -114,3 +114,4 @@ Date:   Fri Mar 2 20:01:23 2018 +0200
  tiedosto.txt | 0
  1 file changed, 0 insertions(+), 0 deletions(-)
 
+Virhetilanteen aiheuttamista

@@ -1,0 +1,116 @@
+commit 47d716dc1b4b99878a39175cf8271475a3364739
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:47:34 2018 +0200
+
+    lisätty file1 ja nimetty file2 file22ksi
+
+ tiedostoja/file1  | 0
+ tiedostoja/file2  | 0
+ tiedostoja/file22 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit b030afb98995e4b14be69c4b3b4a1cd540411bcd
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:44:04 2018 +0200
+
+    lisätty 3 tiedostoa
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit f20df172b0a28c361910b839573f037494db9fb3
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:35:17 2018 +0200
+
+    muutettu eka ja kolmas ja patchailya
+
+ eka.txt    | 2 +-
+ kolmas.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 73d80197d798143c005844ae0ecb7c397f220867
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:33:38 2018 +0200
+
+    muutettu tiedosto ekaksi
+
+ eka.txt      | 13 +++++++++++++
+ tiedosto.txt | 13 -------------
+ 2 files changed, 13 insertions(+), 13 deletions(-)
+
+commit 865a59b7eaca369c38317cb012ceeba6f8c030a6
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:31:53 2018 +0200
+
+    poistettu toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 0b30626414430ee582fae386d0a10a3ae75b388d
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:29:03 2018 +0200
+
+    poistettu sanoja tiedosto.txtstä ja lisätty oma lause
+
+ tiedosto.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit e0f873cae98fe5213b2fc6ab6f33a638baf20117
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:27:23 2018 +0200
+
+    lisätty lorem ipsumia tiedostoon tiedosto.txt
+
+ tiedosto.txt | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+commit c9302e90ea3d2d4313b31897e94c1d0ebd38bdea
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:11:02 2018 +0200
+
+    lisätty stuff-kansio ja pitsalista.txt
+
+ stuff/pitsalista.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit f0a5266c2aad058728abb288aa6dfc1962187c80
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:08:55 2018 +0200
+
+    muokattu toista ja kolmatta
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 5bea8bd8c97c54b442d805336ca48062895471c2
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:07:11 2018 +0200
+
+    lisätty kolmas.txt
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 46f0b47d6cc87e99f8cac803abed947a40e2e9a4
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:03:38 2018 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 2bab0d181c12a62650ea63f568881d3a93096f6e
+Author: Matti Österbacka <matti.osterbacka@helsinki.fi>
+Date:   Fri Mar 2 20:01:23 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+

@@ -1,31 +1,37 @@
 public class Maksukortti {
+    private double arvo;
+    private final double EDULLINEN = 2.5;
+    private final double MAUKAS = 4.0;
  
-    private int saldo;
- 
-    public Maksukortti(int saldo) {
-        this.saldo = saldo;
+    public Maksukortti(double arvoaAlussa) {
+        this.arvo = arvoaAlussa;
     }
  
-    public int saldo() {
-        return saldo;
+    public void syoEdullisesti() {
+        if (this.arvo >= EDULLINEN) {
+            this.arvo -= EDULLINEN;
+        }
     }
  
-    public void lataaRahaa(int lisays) {
-        this.saldo += lisays;
+    public void syoMaukkaasti() {
+        if (this.arvo >= MAUKAS) {
+            this.arvo -= MAUKAS;
+        }
     }
  
-    public boolean otaRahaa(int maara) {
-        if (this.saldo < maara)
-            return false;
+    public void lataaRahaa(double rahamaara) {
+        if (rahamaara < 0) {
+            return;
+        }
  
-        this.saldo = this.saldo - maara;
-        return true;
+        this.arvo += rahamaara;
+        if (this.arvo > 150) {
+            this.arvo = 150;
+        }
     }
-
+ 
     @Override
     public String toString() {
-        int euroa = saldo/100;
-        int senttia = saldo%100;
-        return "saldo: "+euroa+"."+senttia;
-    }    
-}
+        return "Kortilla on rahaa " + this.arvo + " euroa";
+    }
+} 

@@ -148,11 +148,4 @@ public class KassapaateTest {
         assertEquals(aluksiKassassa, paate.kassassaRahaa());
     }
 
-    public void paatteeltaEiVoiLadataNullSaldoaKortille() { // tässä kohtaa väittää ettei ole täyttä testikattavuutta vaikka käytännössä on
-        Maksukortti kortti = new Maksukortti(1);
-        paate.lataaRahaaKortille(kortti, -10);
-        assertEquals(1, kortti.saldo());
-        assertEquals(aluksiKassassa, paate.kassassaRahaa());
-    }
-
 }

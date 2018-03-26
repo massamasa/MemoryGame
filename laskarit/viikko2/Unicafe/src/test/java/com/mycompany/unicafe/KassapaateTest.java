@@ -140,7 +140,8 @@ public class KassapaateTest {
         assertEquals(1, kortti.saldo());
         assertEquals(aluksiKassassa + 1, paate.kassassaRahaa());
     }
-
+    
+    @Test
     public void paatteeltaEiVoiLadataNegatiivistaSaldoaKortille() { // tässä kohtaa väittää ettei ole täyttä testikattavuutta vaikka käytännössä on
         Maksukortti kortti = new Maksukortti(1);
         paate.lataaRahaaKortille(kortti, -10);

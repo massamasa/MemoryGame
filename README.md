@@ -1,10 +1,6 @@
-# otm harjoitustyö Matti Österbacka
+# Memory Game
+A practice programming project for the course Ohjelmistotekniikan menetelmät at the University Of Helsinki.
+## Documentation
+[Requirements document (määrittelydokumentti)](https://github.com/massamasa/otm-harjoitustyo/blob/master/dokumentointi/requirementsdocument.md)
 
-## Linkkejä
-[gitlog.txt](https://github.com/massamasa/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
-
-[komentorivi.txt](https://github.com/massamasa/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-
-[Määrittelydokumentti](https://github.com/massamasa/otm-harjoitustyo/blob/master/dokumentointi/maarittelydokumentti.md)
-
-[Työaikakirjanpito](https://github.com/massamasa/otm-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+[Record of working hours (Työaikakirjanpito)](https://github.com/massamasa/otm-harjoitustyo/blob/master/dokumentointi/workhoursrecord.md)

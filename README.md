@@ -3,4 +3,4 @@ A practice programming project for the course Ohjelmistotekniikan menetelmät at
 ## Documentation
 [Requirements document (määrittelydokumentti)](https://github.com/massamasa/otm-harjoitustyo/blob/master/dokumentointi/requirementsdocument.md)
 
-[Record of working hours (Työaikakirjanpito)](https://github.com/massamasa/otm-harjoitustyo/blob/master/dokumentointi/workhoursrecord.md)
+[Record of working hours (työaikakirjanpito)](https://github.com/massamasa/otm-harjoitustyo/blob/master/dokumentointi/workhoursrecord.md)

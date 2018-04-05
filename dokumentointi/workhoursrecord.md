@@ -1,4 +1,4 @@
-# Työaikakirjanpito
+# Record of working hours
 | Date | Time(h) | Task |
 | :----:|:-----| :-----|
 | 20.3. | 1    | Initial design of the requirements document |

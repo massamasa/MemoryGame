@@ -1,8 +1,8 @@
+package logic;
+
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import javafx.scene.control.Button;
 
 public class Logic {
 

@@ -1,4 +1,5 @@
 
+import logic.Logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.After;

@@ -1,11 +1,9 @@
+package ui;
 
-import static java.lang.Thread.sleep;
-import java.util.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import logic.Logic; 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +11,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
 public class Gui extends Application {
@@ -31,7 +28,7 @@ public class Gui extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.dimension = 2;
+        this.dimension = 4;
         this.timer = 0;
         this.firstMemoryButton = cardButton();
         this.logic = new Logic(dimension);

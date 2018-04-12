@@ -9,4 +9,4 @@
 |       | 2    | Logic tests created |
 | 26.3. | 1    | Refactoring requirements document |
 | 5.4.  | 1    | Refactoring the documentation and translating it to English |
-| Total | 14   | | 
+| Total | 15   | | 

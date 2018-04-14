@@ -9,4 +9,7 @@
 |       | 2    | Logic tests created |
 | 26.3. | 1    | Refactoring requirements document |
 | 5.4.  | 1    | Refactoring the documentation and translating it to English |
-| Total | 15   | | 
+| 13.4.	| 1	| Refactoring Ui classes and adding a start menu	|
+|	| 1	| Applying checkstyle, fixing style in Logic class and discluding ui from jacoco reports 	|
+|	| 2	| Created Highscore and HighScoreDao classes 	|
+| Total | 20   | | 

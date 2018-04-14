@@ -1,5 +1,4 @@
-package logic;
-
+package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,32 +65,30 @@ public class Logic {
     }
 
     public boolean identicalCardToPreviousButNotSame(int x, int y) {
-        
         if (sameAsPrevious(x, y)) {
             return false;
         }
-
         if (this.previousX >= 0 && this.previousY >= 0) {
             int succ = this.integer2DArray[y][x];
             int prev = this.integer2DArray[previousY][previousX];
             if (succ == prev) {
-                this.previousX = -1;
-                this.previousY = -1;
+                changePreviousXY(-1, -1);
                 this.foundPairs.add(succ);
-                pairSb.append(succ);
-                pairSb.append(", ");
+                pairSb.append(succ + ", ");
                 return true;
-            } else if (boolean2DArray[y][x]){
+            } else if (boolean2DArray[y][x]) {
                 penalty++;
             }
         }
         this.boolean2DArray[y][x] = true;
-        this.previousX = x;
-        this.previousY = y;
+        changePreviousXY(x, y);
         return false;
     }
-    
-    
+
+    private void changePreviousXY(int x, int y) {
+        this.previousX = x;
+        this.previousY = y;
+    }
 
     public String foundPairsString() {
         return pairSb.toString();
@@ -103,8 +100,5 @@ public class Logic {
         }
         return false;
     }
-
-    
-
 
 }

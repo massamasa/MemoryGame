@@ -1,7 +1,8 @@
 package ui;
 
 import dao.HighScoreDao;
-import domain.Logic;
+import domain.GameBoard;
+import domain.MenuLogic;
 import domain.Score;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ public class GameStage {
     private int penalty;
     private boolean spaceDown;
     private int dimension;
-    private Logic logic;
+    private GameBoard logic;
     private Label foundNumbers;
     private GridPane gp;
     private GridPane gp2;
@@ -43,7 +44,7 @@ public class GameStage {
         this.dimension = dimension;
         this.timer = 0;
         this.firstMemoryButton = cardButton();
-        this.logic = new Logic(dimension);
+        this.logic = new GameBoard(dimension);
         this.gp = playableGp();
         this.gp2 = nakedGp();
         BorderPane bp = new BorderPane(gp);
@@ -90,10 +91,11 @@ public class GameStage {
                         scoreVbox.getChildren().add(returnToMenuButton);
                         bp.setCenter(scoreVbox);
                         try {
-                            new HighScoreDao().addScore(new Score(nickname, score), dimension);
+                            new MenuLogic().addScore(dimension, new Score(nickname, score));
                         } catch (SQLException ex) {
                             Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        
                         stop();
                     }
                     timerLabel.setText("Base: " + (timer / 10.0));
@@ -114,7 +116,7 @@ public class GameStage {
         for (int y = 0; y < this.dimension; y++) {
             for (int x = 0; x < this.dimension; x++) {
                 Button button = cardButton();
-                button.setText("" + this.logic.getIntegerFromInteger2DArray(x, y));
+                button.setText("" + this.logic.getCardIntegerFromCard2DArray(x, y));
                 gp2.add(button, y, x);
             }
         }
@@ -147,7 +149,7 @@ public class GameStage {
                             this.firstMemoryButton.setText("T");
                         }
 
-                        button.setText("" + logic.getIntegerFromInteger2DArray(xx, yy));
+                        button.setText("" + logic.getCardIntegerFromCard2DArray(xx, yy));
                         this.firstMemoryButton = button;
                     }
                 });

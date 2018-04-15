@@ -1,5 +1,6 @@
 package ui;
 
+import domain.MenuLogic;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,12 +19,14 @@ public class StartMenu {
     private Label sizeIntegerLabel;
     private Stage primaryStage;
     private TextField nicknameTextArea;
+    private MenuLogic menuLogic;
 
     public StartMenu(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.dimension = 4;
         this.sizeIntegerLabel = new Label("" + dimension);
         this.nicknameTextArea = new TextField("nickname");
+        this.menuLogic = new MenuLogic();
     }
 
     public Scene startingScene() {

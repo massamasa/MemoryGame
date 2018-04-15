@@ -1,5 +1,5 @@
 
-import domain.Logic;
+import domain.GameBoard;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.After;
@@ -9,12 +9,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class LogicTest {
+public class GameStageLogicTest {
 
-    Logic logic;
+    GameBoard logic;
     int dimension;
 
-    public LogicTest() {
+    public GameStageLogicTest() {
     }
 
     @BeforeClass
@@ -28,7 +28,7 @@ public class LogicTest {
     @Before
     public void setUp() {
         dimension = 4;
-        logic = new Logic(dimension);
+        logic = new GameBoard(dimension);
     }
 
     @After
@@ -56,7 +56,7 @@ public class LogicTest {
                 first = logic.identicalCardToPreviousButNotSame(0, 0);
                 second = logic.identicalCardToPreviousButNotSame(x, y);
                 if (second) {
-                    assertEquals("Found: " + logic.getIntegerFromInteger2DArray(0, 0) + ", ", logic.foundPairsString());
+                    assertEquals("Found: " + logic.getCardIntegerFromCard2DArray(0, 0) + ", ", logic.foundPairsString());
                 }
             }
         }
@@ -75,7 +75,7 @@ public class LogicTest {
                 first = logic.identicalCardToPreviousButNotSame(firstX, firstY);
                 second = logic.identicalCardToPreviousButNotSame(x, y);
                 if (second) {
-                    assertEquals(logic.getIntegerFromInteger2DArray(firstX, firstY), logic.getIntegerFromInteger2DArray(x, y));
+                    assertEquals(logic.getCardIntegerFromCard2DArray(firstX, firstY), logic.getCardIntegerFromCard2DArray(x, y));
                     successes++;
                 }
             }
@@ -83,38 +83,6 @@ public class LogicTest {
         assertEquals(1, successes);
     }
 
-    @Test
-    public void canCreateRectangular2DIntegerArrayWithRightNumbers() {
-        int[][] array = logic.createRectangular2DIntegerArray();
-        int[] onedimensional = new int[array.length * array[0].length];
-
-        int counter = 0;
-        for (int y = 0; y < array.length; y++) {
-            for (int x = 0; x < array[0].length; x++) {
-                onedimensional[counter] = array[y][x];
-                counter++;
-            }
-        }
-        Arrays.sort(onedimensional);
-        counter = 1;
-        for (int i = 0; i < onedimensional.length - 1; i += 2) {
-            assertEquals(counter, onedimensional[i]);
-            assertEquals(counter, onedimensional[i + 1]);
-            counter++;
-        }
-    }
-
-    @Test
-    public void consecutiveNumberPairsGeneratedStartingFromOne() {
-        ArrayList<Integer> cardList = logic.createCards();
-        int oneUp = 1;
-        for (int i = 0; i < cardList.size(); i += 2) {
-            Integer integer = oneUp;
-            for (int j = 0; j < 2; j++) {
-                assertEquals(integer, cardList.get(i + j));
-            }
-            oneUp++;
-        }
-    }
+    
 
 }

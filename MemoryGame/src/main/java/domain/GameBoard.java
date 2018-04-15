@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Logic {
+public class GameBoard {
 
     private int[][] integer2DArray;
     private int dimension;
@@ -14,16 +14,15 @@ public class Logic {
     private ArrayList<Integer> foundPairs;
     private StringBuilder pairSb;
     private int penalty;
-    private final boolean[][] boolean2DArray;
+    private final Card[][] card2DArray;
 
-    public Logic(int dimension) {
+    public GameBoard(int dimension) {
         this.pairSb = new StringBuilder("Found: ");
         this.foundPairs = new ArrayList<>();
         this.previousX = -2;
         this.previousY = -2;
         this.dimension = dimension;
-        this.integer2DArray = createRectangular2DIntegerArray();
-        this.boolean2DArray = new boolean[dimension][dimension];
+        this.card2DArray =  createRectangular2DCardArray();
     }
 
     public int getCardCheckedPenalty() {
@@ -34,34 +33,34 @@ public class Logic {
         return foundPairs.size() == dimension * dimension / 2;
     }
 
-    public int getIntegerFromInteger2DArray(int x, int y) {
-        return integer2DArray[y][x];
+    public int getCardIntegerFromCard2DArray(int x, int y) {
+        return card2DArray[y][x].getCardNumber();
     }
 
-    public ArrayList<Integer> createCards() {
-        ArrayList<Integer> integerList = new ArrayList<>();
+    public ArrayList<Card> createCards() {
+        ArrayList<Card> cardList = new ArrayList<>();
 
-        for (int i = 1; integerList.size() < dimension * dimension; i++) {
-            integerList.add(i);
-            integerList.add(i);
+        for (int i = 1; cardList.size() < dimension * dimension; i++) {
+            cardList.add(new Card(i));
+            cardList.add(new Card(i));
         }
 
-        return integerList;
+        return cardList;
     }
 
-    public int[][] createRectangular2DIntegerArray() {
-        ArrayList<Integer> cardList = createCards();
+    public Card[][] createRectangular2DCardArray() {
+        ArrayList<Card> cardList = createCards();
         Collections.shuffle(cardList);
 
-        int[][] newInteger2DArray = new int[dimension][dimension];
+        Card[][] newCard2DArray = new Card[dimension][dimension];
         int i = 0;
         for (int y = 0; y < dimension; y++) {
             for (int x = 0; x < dimension; x++) {
-                newInteger2DArray[y][x] = cardList.get(i);
+                newCard2DArray[y][x] = cardList.get(i);
                 i++;
             }
         }
-        return newInteger2DArray;
+        return newCard2DArray;
     }
 
     public boolean identicalCardToPreviousButNotSame(int x, int y) {
@@ -69,18 +68,18 @@ public class Logic {
             return false;
         }
         if (this.previousX >= 0 && this.previousY >= 0) {
-            int succ = this.integer2DArray[y][x];
-            int prev = this.integer2DArray[previousY][previousX];
+            int succ = this.card2DArray[y][x].getCardNumber();
+            int prev = this.card2DArray[previousY][previousX].getCardNumber();
             if (succ == prev) {
                 changePreviousXY(-1, -1);
                 this.foundPairs.add(succ);
                 pairSb.append(succ + ", ");
                 return true;
-            } else if (boolean2DArray[y][x]) {
+            } else if (card2DArray[y][x].isChecked()) {
                 penalty++;
             }
         }
-        this.boolean2DArray[y][x] = true;
+        this.card2DArray[y][x].setChecked(true);
         changePreviousXY(x, y);
         return false;
     }
@@ -93,6 +92,8 @@ public class Logic {
     public String foundPairsString() {
         return pairSb.toString();
     }
+    
+    
 
     public boolean sameAsPrevious(int x, int y) {
         if (this.previousX == x && this.previousY == y) {

@@ -12,4 +12,6 @@
 | 13.4.	| 1	| Refactoring Ui classes and adding a start menu	|
 |	| 1	| Applying checkstyle, fixing style in Logic class and discluding ui from jacoco reports 	|
 |	| 2	| Created Highscore and HighScoreDao classes 	|
-| Total | 20   | | 
+| 15.4. | 3 |  Remodeling classes  |
+|   |   2  | Creating the architecture document  |
+| Total | 25   | | 

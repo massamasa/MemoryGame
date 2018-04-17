@@ -12,5 +12,6 @@ A practice programming project for the course Ohjelmistotekniikan menetelmät at
 ### Testing
 Tests can be run with command
 > - mvn test
+
 A test coverage report is created with command
 > - mvn jacoco:report

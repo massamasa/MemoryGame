@@ -1,7 +1,5 @@
 
 import domain.GameBoard;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -9,12 +7,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class GameStageLogicTest {
+public class GameBoardTest {
 
     GameBoard logic;
     int dimension;
 
-    public GameStageLogicTest() {
+    public GameBoardTest() {
     }
 
     @BeforeClass

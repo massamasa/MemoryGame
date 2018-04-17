@@ -1,15 +1,31 @@
 package dao;
 
 import domain.Score;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class HighScoreDao {
+
+    public void initializeHighScoreDao() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:HighScores.db");
+        PreparedStatement stmt = connection.prepareStatement("CREATE TABLE HighScores2(nickname varchar(8), seconds double);\n"
+                + "CREATE TABLE HighScores4(nickname varchar(8), seconds double);\n"
+                + "CREATE TABLE HighScores6(nickname varchar(8), seconds double);");
+        stmt.executeUpdate();
+        stmt.close();
+        connection.close();
+    }
+
+    public void deleteOldHighScoreDao() throws IOException {
+        Files.delete(Paths.get("HighScores.db"));
+    }
 
     public void addScore(Score score, int dimension) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:HighScores.db");

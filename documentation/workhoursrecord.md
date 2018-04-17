@@ -14,4 +14,5 @@
 |	| 2	| Created Highscore and HighScoreDao classes 	|
 | 15.4. | 3 |  Remodeling classes  |
 |   |   2  | Creating the architecture document  |
+| 17.4.	| 1	| Added HighScoreDao tests |
 | Total | 25   | | 

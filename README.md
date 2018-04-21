@@ -15,3 +15,7 @@ Tests can be run with command
 
 A test coverage report is created with command
 > - mvn jacoco:report
+
+### Generating executable jar 
+An executable .jar file can be generated with command
+> - mvn package

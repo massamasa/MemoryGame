@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,7 +20,7 @@ public class StartMenu {
     private TextField nicknameTextArea;
     private MenuLogic menuLogic;
 
-    public StartMenu(Stage primaryStage) {
+    public StartMenu(Stage primaryStage) throws SQLException {
         this.primaryStage = primaryStage;
         this.dimension = 4;
         this.sizeIntegerLabel = new Label("" + dimension);

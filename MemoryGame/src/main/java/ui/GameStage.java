@@ -1,6 +1,5 @@
 package ui;
 
-import dao.HighScoreDao;
 import domain.GameBoard;
 import domain.MenuLogic;
 import domain.Score;
@@ -22,7 +21,6 @@ import javafx.stage.Stage;
 
 public class GameStage {
 
-    private HighScoreDao hsDao;
     private Button firstMemoryButton;
     private int timer;
     private int penalty;

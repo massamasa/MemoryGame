@@ -5,7 +5,7 @@
  */
 package ui;
 
-import dao.HighScoreDao;
+import domain.MenuLogic;
 import domain.Score;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,10 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- *
- * @author mattiost
- */
 public class HighScores {
 
     private Stage primaryStage;
@@ -28,7 +24,7 @@ public class HighScores {
     public Scene highScoreScene(int dimension, Stage primaryStage) throws SQLException {
         this.primaryStage = primaryStage;
         GridPane scoreGp = new GridPane();
-        ArrayList<Score> scoreList = new HighScoreDao("HighScores.db").getScores(dimension);
+        ArrayList<Score> scoreList = new MenuLogic().getScoreList(dimension);
         scoreGp.add(new Label("Nickname"), 0, 0);
         scoreGp.add(new Label("|  Seconds"), 1, 0);
         for (int i = 0; i < scoreList.size(); i++) {

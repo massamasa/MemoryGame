@@ -15,4 +15,5 @@
 | 15.4. | 3 |  Remodeling classes  |
 |   |   2  | Creating the architecture document  |
 | 17.4.	| 1	| Added HighScoreDao tests |
-| Total | 25   | | 
+| 21.4. | 2 | Fixed major bugs in HighScoreDao and its tests |
+| Total | 28   | | 

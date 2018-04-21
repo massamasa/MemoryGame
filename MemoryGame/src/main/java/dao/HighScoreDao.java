@@ -13,22 +13,39 @@ import java.util.ArrayList;
 
 public class HighScoreDao {
 
-    public void initializeHighScoreDao() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:HighScores.db");
-        PreparedStatement stmt = connection.prepareStatement("CREATE TABLE HighScores2(nickname varchar(8), seconds double);\n"
-                + "CREATE TABLE HighScores4(nickname varchar(8), seconds double);\n"
-                + "CREATE TABLE HighScores6(nickname varchar(8), seconds double);");
-        stmt.executeUpdate();
-        stmt.close();
+    private String fileName;
+
+    public HighScoreDao(String fileName) throws SQLException {
+        this.fileName = fileName;
+    }
+
+    public void initializeHighScoreDaoIfNone() throws SQLException {
+        if (Files.exists(Paths.get(fileName))) {
+            return;
+        }
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
+
+        PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE HighScores2(nickname varchar(8), seconds double)");
+        PreparedStatement stmt4 = connection.prepareStatement("CREATE TABLE HighScores4(nickname varchar(8), seconds double)");
+        PreparedStatement stmt6 = connection.prepareStatement("CREATE TABLE HighScores6(nickname varchar(8), seconds double)");
+
+        stmt2.executeUpdate();
+        stmt4.executeUpdate();
+        stmt6.executeUpdate();
+
+        stmt2.close();
+        stmt4.close();
+        stmt6.close();
+
         connection.close();
     }
 
     public void deleteOldHighScoreDao() throws IOException {
-        Files.delete(Paths.get("HighScores.db"));
+        Files.deleteIfExists(Paths.get(fileName));
     }
 
     public void addScore(Score score, int dimension) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:HighScores.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:"+fileName);
         String tablename = "HighScores" + dimension;
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO " + tablename + " (nickname, seconds)  VALUES(?,  ?)");
         stmt.setString(1, score.getNickname());
@@ -39,7 +56,7 @@ public class HighScoreDao {
     }
 
     public ArrayList<Score> getScores(int dimension) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:HighScores.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:"+fileName);
         String tablename = "HighScores" + dimension;
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + tablename + " ORDER BY " + tablename + ".seconds");
 

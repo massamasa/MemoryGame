@@ -8,9 +8,11 @@ public class MenuLogic {
 
     HighScoreDao hsDao;
 
-    public MenuLogic() {
-        hsDao = new HighScoreDao();
+    public MenuLogic() throws SQLException {
+        hsDao = new HighScoreDao("HighScores.db");
+        hsDao.initializeHighScoreDaoIfNone();
     }
+    
 
     public ArrayList<Score> getScoreList(int dimension) throws SQLException {
         return hsDao.getScores(dimension);

@@ -28,7 +28,7 @@ public class HighScores {
     public Scene highScoreScene(int dimension, Stage primaryStage) throws SQLException {
         this.primaryStage = primaryStage;
         GridPane scoreGp = new GridPane();
-        ArrayList<Score> scoreList = new HighScoreDao().getScores(dimension);
+        ArrayList<Score> scoreList = new HighScoreDao("HighScores.db").getScores(dimension);
         scoreGp.add(new Label("Nickname"), 0, 0);
         scoreGp.add(new Label("|  Seconds"), 1, 0);
         for (int i = 0; i < scoreList.size(); i++) {

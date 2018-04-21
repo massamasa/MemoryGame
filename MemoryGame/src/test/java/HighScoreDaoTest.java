@@ -36,9 +36,10 @@ public class HighScoreDaoTest {
 
     @Before
     public void setUp() throws IOException, SQLException {
-        hsDao = new HighScoreDao();
+        hsDao = new HighScoreDao("HighScoresTesting.db");
+
         hsDao.deleteOldHighScoreDao();
-        hsDao.initializeHighScoreDao();
+        hsDao.initializeHighScoreDaoIfNone();
     }
 
     @After

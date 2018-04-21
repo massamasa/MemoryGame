@@ -57,7 +57,11 @@ public class GameStage {
         bp.setTop(timerBp);
         returnToMenuButton = new Button("RETURN TO MENU");
         returnToMenuButton.setOnMouseClicked((event) -> {
-            primaryStage.setScene(new StartMenu(primaryStage).startingScene());
+            try {
+                primaryStage.setScene(new StartMenu(primaryStage).startingScene());
+            } catch (SQLException ex) {
+                Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         Scene scene = new Scene(bp);
 

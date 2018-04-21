@@ -9,6 +9,8 @@ import domain.MenuLogic;
 import domain.Score;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,7 +44,11 @@ public class HighScores {
     private Button returnButton() {
         Button returnButton = new Button("RETURN TO MENU");
         returnButton.setOnMouseClicked((event) -> {
-            primaryStage.setScene(new StartMenu(primaryStage).startingScene());
+            try {
+                primaryStage.setScene(new StartMenu(primaryStage).startingScene());
+            } catch (SQLException ex) {
+                Logger.getLogger(HighScores.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         return returnButton;
     }

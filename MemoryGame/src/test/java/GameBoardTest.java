@@ -34,6 +34,11 @@ public class GameBoardTest {
     }
 
     @Test
+    public void nameIsString() {
+        assertEquals(logic.getCardNameFromCard2DArray(0, 0).getClass(), new String("hou").getClass());
+    }
+
+    @Test
     public void identicalCheckreturnsFalseForTheSameCoordinate() {
         int x = 0;
         int y = 0;
@@ -45,7 +50,7 @@ public class GameBoardTest {
 
     @Test
     public void StringBuilderWorks() {
-        
+
         assertEquals("Found: ", logic.foundPairsString());
         boolean first = false;
         boolean second = false;
@@ -80,7 +85,5 @@ public class GameBoardTest {
         }
         assertEquals(1, successes);
     }
-
-    
 
 }

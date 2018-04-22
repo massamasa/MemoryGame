@@ -1,5 +1,6 @@
 package ui;
 
+import domain.CountryGameBoard;
 import domain.GameBoard;
 import domain.MenuLogic;
 import domain.Score;
@@ -26,23 +27,34 @@ public class GameStage {
     private int penalty;
     private boolean spaceDown;
     private int dimension;
-    private GameBoard logic;
+    private GameBoard gameBoard;
     private Label foundNumbers;
     private GridPane gp;
     private GridPane gp2;
     private Label penaltyLabel;
     private Stage primaryStage;
     private Button returnToMenuButton;
+    private int gameType;
 
     public GameStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        this.gameType = 0;
+    }
+
+    public GameStage(Stage primaryStage, int gameType) {
+        this.primaryStage = primaryStage;
+        this.gameType = gameType;
     }
 
     public Scene gameScene(int dimension, String nickname) {
         this.dimension = dimension;
         this.timer = 0;
         this.firstMemoryButton = cardButton();
-        this.logic = new GameBoard(dimension);
+        if (gameType == 1) {
+            this.gameBoard = new CountryGameBoard(dimension);
+        } else {
+            this.gameBoard = new GameBoard(dimension);
+        }
         this.gp = playableGp();
         this.gp2 = nakedGp();
         BorderPane bp = new BorderPane(gp);
@@ -84,9 +96,9 @@ public class GameStage {
             @Override
             public void handle(long now) {
                 if (now - lastUpdate >= 100000000) {
-                    if (logic.foundAllPairs()) {
+                    if (gameBoard.foundAllPairs()) {
                         double finalTime = (timer / 10.0);
-                        double score = finalTime + logic.getCardCheckedPenalty();
+                        double score = finalTime + gameBoard.getCardCheckedPenalty();
                         VBox scoreVbox = new VBox();
                         Label scoreLabel = new Label("Score: " + score);
                         scoreVbox.getChildren().add(scoreLabel);
@@ -97,7 +109,7 @@ public class GameStage {
                         } catch (SQLException ex) {
                             Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        
+
                         stop();
                     }
                     timerLabel.setText("Base: " + (timer / 10.0));
@@ -118,7 +130,7 @@ public class GameStage {
         for (int y = 0; y < this.dimension; y++) {
             for (int x = 0; x < this.dimension; x++) {
                 Button button = cardButton();
-                button.setText("" + this.logic.getCardIntegerFromCard2DArray(x, y));
+                button.setText(this.gameBoard.getCardNameFromCard2DArray(x, y));
                 gp2.add(button, y, x);
             }
         }
@@ -134,24 +146,24 @@ public class GameStage {
                 Integer xx = x;
                 Integer yy = y;
                 button.setOnMouseClicked((event) -> {
-                    boolean identical = this.logic.identicalCardToPreviousButNotSame(xx, yy);
+                    boolean identical = this.gameBoard.identicalCardToPreviousButNotSame(xx, yy);
 
                     if (identical) {
                         this.firstMemoryButton.setText("F"); //Found
                         button.setText("F");
-                        this.foundNumbers.setText(logic.foundPairsString());
+                        this.foundNumbers.setText(gameBoard.foundPairsString());
                         this.firstMemoryButton.setOnMouseClicked(null);
                         button.setOnMouseClicked(null);
 
                     } else {
 
-                        penaltyLabel.setText("Recheck penalty: " + logic.getCardCheckedPenalty());
+                        penaltyLabel.setText("Recheck penalty: " + gameBoard.getCardCheckedPenalty());
 
                         if (!this.firstMemoryButton.getText().equals("F")) {
                             this.firstMemoryButton.setText("T");
                         }
 
-                        button.setText("" + logic.getCardIntegerFromCard2DArray(xx, yy));
+                        button.setText(gameBoard.getCardNameFromCard2DArray(xx, yy));
                         this.firstMemoryButton = button;
                     }
                 });

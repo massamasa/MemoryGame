@@ -6,7 +6,7 @@ import java.util.Collections;
 public class GameBoard {
 
     private int[][] integer2DArray;
-    private int dimension;
+    protected int dimension;
     private int previousX;
     private int previousY;
     private int pairsRight;
@@ -22,7 +22,7 @@ public class GameBoard {
         this.previousX = -2;
         this.previousY = -2;
         this.dimension = dimension;
-        this.card2DArray =  createRectangular2DCardArray();
+        this.card2DArray = createRectangular2DCardArray();
     }
 
     public int getCardCheckedPenalty() {
@@ -35,6 +35,10 @@ public class GameBoard {
 
     public int getCardIntegerFromCard2DArray(int x, int y) {
         return card2DArray[y][x].getCardNumber();
+    }
+
+    public String getCardNameFromCard2DArray(int x, int y) {
+        return card2DArray[y][x].getCardName();
     }
 
     public ArrayList<Card> createCards() {
@@ -92,8 +96,6 @@ public class GameBoard {
     public String foundPairsString() {
         return pairSb.toString();
     }
-    
-    
 
     public boolean sameAsPrevious(int x, int y) {
         if (this.previousX == x && this.previousY == y) {

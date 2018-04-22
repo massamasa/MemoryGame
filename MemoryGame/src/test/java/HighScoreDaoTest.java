@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -45,9 +46,9 @@ public class HighScoreDaoTest {
     @After
     public void tearDown() {
     }
-    
+
     @Test
-    public void canAddScore() throws SQLException{
+    public void canAddScore() throws SQLException {
         double seconds = 24.9;
         Score score = new Score("THRILLHO", seconds);
         hsDao.addScore(score, 2);
@@ -55,9 +56,9 @@ public class HighScoreDaoTest {
         assertEquals("THRILLHO", scores.get(0).getNickname());
         assertTrue(scores.get(0).getSeconds() == seconds);
     }
-    
+
     @Test
-    public void scoresSorted() throws SQLException{
+    public void scoresSorted() throws SQLException {
         Score scoreSlower = new Score("THRILLHO", 28.9);
         Score scoreFaster = new Score("THRILLHO", 24.9);
         hsDao.addScore(scoreSlower, 2);
@@ -68,6 +69,5 @@ public class HighScoreDaoTest {
         assertEquals("THRILLHO", scores.get(1).getNickname());
         assertTrue(28.9 == scores.get(1).getSeconds());
     }
-    
-    
+
 }

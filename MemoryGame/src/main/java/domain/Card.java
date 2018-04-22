@@ -10,21 +10,30 @@ package domain;
  * @author mattiost
  */
 public class Card {
+
     private boolean checked;
     private boolean found;
     private int cardNumber;
-
+    private String name;
 
     public int getCardNumber() {
         return cardNumber;
     }
 
     public Card(int cardNumber) {
+        this.name = cardNumber + "";
         this.cardNumber = cardNumber;
         this.checked = false;
         this.found = false;
     }
-    
+
+    public Card(int cardNumber, String name) {
+        this.name = name;
+        this.cardNumber = cardNumber;
+        this.checked = false;
+        this.found = false;
+    }
+
     public boolean isChecked() {
         return checked;
     }
@@ -40,7 +49,9 @@ public class Card {
     public void setChecked(boolean checked) {
         this.checked = checked;
     }
-    
-    
-    
+
+    public String getCardName() {
+        return name;
+    }
+
 }

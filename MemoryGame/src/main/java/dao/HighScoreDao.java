@@ -45,7 +45,7 @@ public class HighScoreDao {
     }
 
     public void addScore(Score score, int dimension) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:"+fileName);
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
         String tablename = "HighScores" + dimension;
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO " + tablename + " (nickname, seconds)  VALUES(?,  ?)");
         stmt.setString(1, score.getNickname());
@@ -56,7 +56,7 @@ public class HighScoreDao {
     }
 
     public ArrayList<Score> getScores(int dimension) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:"+fileName);
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
         String tablename = "HighScores" + dimension;
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + tablename + " ORDER BY " + tablename + ".seconds");
 

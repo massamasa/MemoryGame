@@ -4,8 +4,12 @@ import domain.MenuLogic;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -19,6 +23,7 @@ public class StartMenu {
     private Stage primaryStage;
     private TextField nicknameTextArea;
     private MenuLogic menuLogic;
+    private String gameMode;
 
     public StartMenu(Stage primaryStage) throws SQLException {
         this.primaryStage = primaryStage;
@@ -39,18 +44,31 @@ public class StartMenu {
         Button highScoresButton = highScoresButton();
         horizontalMenu.getChildren().add(sizeText);
         horizontalMenu.getChildren().add(sizeIntegerLabel);
+        horizontalMenu.getChildren().add(modeSelectDropdown());
         horizontalMenu.getChildren().add(minus);
         horizontalMenu.getChildren().add(plus);
         horizontalMenu.getChildren().add(startButton);
-        
+
         horizontalMenu.getChildren().add(highScoresButton);
         verticalMenu.getChildren().add(nicknameTextArea);
         verticalMenu.getChildren().add(horizontalMenu);
-        
 
         Scene scene = new Scene(verticalMenu);
 
         return scene;
+    }
+
+    private ComboBox modeSelectDropdown() {
+        ObservableList<String> modeList = FXCollections.observableArrayList(
+                "Plain Integers",
+                "Country Codes"
+        );
+        ComboBox modeCBox = new ComboBox(modeList);
+
+        modeCBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            gameMode = (String) newValue;
+        });
+        return modeCBox;
     }
 
     private Button plus() {
@@ -79,7 +97,11 @@ public class StartMenu {
         Button start = new Button("START");
         start.setOnMouseClicked((event) -> {
             String nickname = nicknameTextArea.getText().substring(0, 8);
-            primaryStage.setScene(new GameStage(primaryStage).gameScene(this.dimension, nickname));
+            if (this.gameMode.equals("Country Codes")) {
+                primaryStage.setScene(new GameStage(primaryStage, 1).gameScene(this.dimension, nickname));
+            } else {
+                primaryStage.setScene(new GameStage(primaryStage).gameScene(this.dimension, nickname));
+            }
         });
         return start;
     }

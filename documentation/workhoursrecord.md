@@ -16,4 +16,6 @@
 |   |   2  | Creating the architecture document  |
 | 17.4.	| 1	| Added HighScoreDao tests |
 | 21.4. | 2 | Fixed major bugs in HighScoreDao and its tests |
-| Total | 28   | | 
+| 22.4. | 1 | added countrycode gamemode	|
+|	| 1 | added tests for countrycode game mode and card class |
+| Total | 30   | | 

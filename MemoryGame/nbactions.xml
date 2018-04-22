@@ -88,4 +88,11 @@
                 <goal>package</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-package2</actionName>
+            <displayName>package2</displayName>
+            <goals>
+                <goal>package</goal>
+            </goals>
+        </action>
     </actions>

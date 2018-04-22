@@ -31,6 +31,7 @@ public class StartMenu {
         this.sizeIntegerLabel = new Label("" + dimension);
         this.nicknameTextArea = new TextField("nickname");
         this.menuLogic = new MenuLogic();
+        this.gameMode = "Plain Integers";
     }
 
     public Scene startingScene() {
@@ -64,7 +65,7 @@ public class StartMenu {
                 "Country Codes"
         );
         ComboBox modeCBox = new ComboBox(modeList);
-
+        
         modeCBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             gameMode = (String) newValue;
         });

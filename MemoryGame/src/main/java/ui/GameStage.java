@@ -177,8 +177,8 @@ public class GameStage {
     public Button cardButton() {
         Button cardButton = new Button();
         cardButton.setFont(Font.font(50));
-        cardButton.setMinSize(150, 150);
-        cardButton.setMaxSize(150, 150);
+        cardButton.setMinSize(250, 150);
+        cardButton.setMaxSize(250, 150);
         return cardButton;
     }
 

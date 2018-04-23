@@ -19,25 +19,29 @@ public class HighScoreDao {
         this.fileName = fileName;
     }
 
-    public void initializeHighScoreDaoIfNone() throws SQLException {
+    public void initializeHighScoreDaoIfNone() throws SQLException, IOException {
         if (Files.exists(Paths.get(fileName))) {
             return;
         }
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
+            PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE HighScores2(nickname varchar(8), seconds double)");
+            PreparedStatement stmt4 = connection.prepareStatement("CREATE TABLE HighScores4(nickname varchar(8), seconds double)");
+            PreparedStatement stmt6 = connection.prepareStatement("CREATE TABLE HighScores6(nickname varchar(8), seconds double)");
 
-        PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE HighScores2(nickname varchar(8), seconds double)");
-        PreparedStatement stmt4 = connection.prepareStatement("CREATE TABLE HighScores4(nickname varchar(8), seconds double)");
-        PreparedStatement stmt6 = connection.prepareStatement("CREATE TABLE HighScores6(nickname varchar(8), seconds double)");
+            stmt2.executeUpdate();
+            stmt4.executeUpdate();
+            stmt6.executeUpdate();
+            stmt2.close();
+            stmt4.close();
+            stmt6.close();
 
-        stmt2.executeUpdate();
-        stmt4.executeUpdate();
-        stmt6.executeUpdate();
+            connection.close();
 
-        stmt2.close();
-        stmt4.close();
-        stmt6.close();
-
-        connection.close();
+        } catch (Exception e) {
+            deleteOldHighScoreDao();
+            initializeHighScoreDaoIfNone();
+        }
     }
 
     public void deleteOldHighScoreDao() throws IOException {

@@ -19,3 +19,9 @@ A test coverage report is created with command
 ### Generating executable jar 
 An executable .jar file can be generated with command
 > - mvn package
+
+### Checkstyle
+Checkstyle tests defined in file [checkstyle.xml](https://github.com/massamasa/otm-harjoitustyo/blob/master/MemoryGame/checkstyle.xml) can be performed with the command
+> -  mvn jxr:jxr checkstyle:checkstyle
+
+Any error messages are found in the file at target/site/checkstyle.html

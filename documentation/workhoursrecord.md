@@ -18,4 +18,5 @@
 | 21.4. | 2 | Fixed major bugs in HighScoreDao and its tests |
 | 22.4. | 1 | added countrycode gamemode	|
 |	| 1 | added tests for countrycode game mode and card class |
-| Total | 30   | | 
+|	23.4. | 1 | improved consistency in highscoredao and updated readme.md |
+| Total | 31   | | 

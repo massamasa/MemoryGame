@@ -1,7 +1,6 @@
 package domain;
 
 
-import domain.Card;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;

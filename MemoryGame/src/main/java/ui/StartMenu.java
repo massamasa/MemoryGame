@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -46,9 +45,9 @@ public class StartMenu {
         Button highScoresButton = highScoresButton();
         horizontalMenu.getChildren().add(sizeText);
         horizontalMenu.getChildren().add(sizeIntegerLabel);
-        horizontalMenu.getChildren().add(modeSelectDropdown());
         horizontalMenu.getChildren().add(minus);
         horizontalMenu.getChildren().add(plus);
+        horizontalMenu.getChildren().add(modeSelectDropdown());
         horizontalMenu.getChildren().add(startButton);
 
         horizontalMenu.getChildren().add(highScoresButton);

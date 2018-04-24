@@ -1,7 +1,6 @@
 package domain;
 
 
-import domain.GameBoard;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

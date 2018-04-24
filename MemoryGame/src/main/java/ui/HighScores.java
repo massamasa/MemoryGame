@@ -7,6 +7,7 @@ package ui;
 
 import domain.MenuLogic;
 import domain.Score;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -15,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,7 +23,7 @@ public class HighScores {
 
     private Stage primaryStage;
 
-    public Scene highScoreScene(int dimension, Stage primaryStage) throws SQLException {
+    public Scene highScoreScene(int dimension, Stage primaryStage) throws SQLException, IOException {
         this.primaryStage = primaryStage;
         GridPane scoreGp = new GridPane();
         ArrayList<Score> scoreList = new MenuLogic().getScoreList(dimension);
@@ -47,6 +47,8 @@ public class HighScores {
             try {
                 primaryStage.setScene(new StartMenu(primaryStage).startingScene());
             } catch (SQLException ex) {
+                Logger.getLogger(HighScores.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(HighScores.class.getName()).log(Level.SEVERE, null, ex);
             }
         });

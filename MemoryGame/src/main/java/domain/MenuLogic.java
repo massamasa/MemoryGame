@@ -1,6 +1,7 @@
 package domain;
 
 import dao.HighScoreDao;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ public class MenuLogic {
 
     HighScoreDao hsDao;
 
-    public MenuLogic() throws SQLException {
+    public MenuLogic() throws SQLException, IOException {
         hsDao = new HighScoreDao("HighScores.db");
         hsDao.initializeHighScoreDaoIfNone();
     }

@@ -4,6 +4,7 @@ import domain.CountryGameBoard;
 import domain.GameBoard;
 import domain.MenuLogic;
 import domain.Score;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,6 +74,8 @@ public class GameStage {
                 primaryStage.setScene(new StartMenu(primaryStage).startingScene());
             } catch (SQLException ex) {
                 Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         Scene scene = new Scene(bp);
@@ -107,6 +110,8 @@ public class GameStage {
                         try {
                             new MenuLogic().addScore(dimension, new Score(nickname, score));
                         } catch (SQLException ex) {
+                            Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
                             Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
                         }
 

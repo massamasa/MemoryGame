@@ -1,3 +1,5 @@
+package domain;
+
 
 import domain.CountryGameBoard;
 import org.junit.After;

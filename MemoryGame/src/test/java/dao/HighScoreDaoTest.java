@@ -1,3 +1,5 @@
+package dao;
+
 
 import dao.HighScoreDao;
 import domain.Score;

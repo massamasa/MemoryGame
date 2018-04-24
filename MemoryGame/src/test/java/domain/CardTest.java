@@ -1,3 +1,5 @@
+package domain;
+
 
 import domain.Card;
 import org.junit.After;

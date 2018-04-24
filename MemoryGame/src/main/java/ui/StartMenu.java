@@ -1,6 +1,7 @@
 package ui;
 
 import domain.MenuLogic;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ public class StartMenu {
     private MenuLogic menuLogic;
     private String gameMode;
 
-    public StartMenu(Stage primaryStage) throws SQLException {
+    public StartMenu(Stage primaryStage) throws SQLException, IOException {
         this.primaryStage = primaryStage;
         this.dimension = 4;
         this.sizeIntegerLabel = new Label("" + dimension);
@@ -114,6 +115,8 @@ public class StartMenu {
             try {
                 primaryStage.setScene(new HighScores().highScoreScene(dimension, primaryStage));
             } catch (SQLException ex) {
+                Logger.getLogger(StartMenu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(StartMenu.class.getName()).log(Level.SEVERE, null, ex);
             }
         });

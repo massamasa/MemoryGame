@@ -25,3 +25,6 @@ Checkstyle tests defined in file [checkstyle.xml](https://github.com/massamasa/o
 > -  mvn jxr:jxr checkstyle:checkstyle
 
 Any error messages are found in the file at target/site/checkstyle.html
+
+### Releases
+[v1.0](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.0)

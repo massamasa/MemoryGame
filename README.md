@@ -27,4 +27,4 @@ Checkstyle tests defined in file [checkstyle.xml](https://github.com/massamasa/o
 Any error messages are found in the file at target/site/checkstyle.html
 
 ### Releases
-[v1.0](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.0)
+- [v1.0](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.0)

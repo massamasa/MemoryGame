@@ -31,3 +31,19 @@ MemoryGame.MenuLogic can access high scores contained in sqlite3 files through t
 Package and class relations diagram for the MemoryGame program.
 
 ![classdiagram](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/imagesforarchitecturedocumentation/classdiagram.png)
+
+## Main functionalities
+
+Illustrations of main functionalities with sequence diagrams
+
+### Choosing cards and finding pairs
+
+After the GameStage has beeb initalized clicking on two matching cards consequently proceeds as follows
+
+![Sequence Diagram - Finding Pairs](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/imagesforarchitecturedocumentation/sequencediagram1.png)
+
+
+Clicking on the first card will call method matchingCardInDifferentCoordinate in gameBoard to check if the card was the same as the previous, and as there is no previous card, the method will return false. A routine check to check for a recheck penalty is performed and will return 0 as there was no recheck. gameStage performs a check on the FirstMemoryButton to see if it's text value is "F"(found) and returns false because firstMemoryButton is a blank placeholder at this time. The returned boolean false and the if statement is passed. The text of the checked card is set to "4" as the default GameBoard class uses the card's integer as its name. This first clicked button is saved in firstMemoryButton at the end of the block.
+
+
+Clicking on the second card will check for an integer matching the previous card's integer with the method matchingCardInDifferentCoordinate and as they are deemed equal, the method returns true. Both the first and second card buttons' text values are set to "F". The found pairs String is updated with a string with the found number: "4, ". Both the first and second buttons' onClickListeners are set to null as they are no longer needed.

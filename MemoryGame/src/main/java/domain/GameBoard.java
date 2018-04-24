@@ -67,7 +67,7 @@ public class GameBoard {
         return newCard2DArray;
     }
 
-    public boolean identicalCardToPreviousButNotSame(int x, int y) {
+    public boolean matchingCardInDifferentCoordinate(int x, int y) {
         if (sameAsPrevious(x, y)) {
             return false;
         }

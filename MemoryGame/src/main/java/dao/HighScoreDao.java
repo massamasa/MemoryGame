@@ -28,16 +28,13 @@ public class HighScoreDao {
             PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE HighScores2(nickname varchar(8), seconds double)");
             PreparedStatement stmt4 = connection.prepareStatement("CREATE TABLE HighScores4(nickname varchar(8), seconds double)");
             PreparedStatement stmt6 = connection.prepareStatement("CREATE TABLE HighScores6(nickname varchar(8), seconds double)");
-
             stmt2.executeUpdate();
             stmt4.executeUpdate();
             stmt6.executeUpdate();
             stmt2.close();
             stmt4.close();
             stmt6.close();
-
             connection.close();
-
         } catch (Exception e) {
             deleteOldHighScoreDao();
             initializeHighScoreDaoIfNone();

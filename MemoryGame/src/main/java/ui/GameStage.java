@@ -9,14 +9,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -50,7 +48,7 @@ public class GameStage {
     public Scene gameScene(int dimension, String nickname) {
         this.dimension = dimension;
         this.timer = 0;
-        this.firstMemoryButton = cardButton();
+        this.firstMemoryButton = newBlankCardButton();
         if (gameType == 1) {
             this.gameBoard = new CountryGameBoard(dimension);
         } else {
@@ -134,7 +132,7 @@ public class GameStage {
         GridPane gp2 = new GridPane();
         for (int y = 0; y < this.dimension; y++) {
             for (int x = 0; x < this.dimension; x++) {
-                Button button = cardButton();
+                Button button = newBlankCardButton();
                 button.setText(this.gameBoard.getCardNameFromCard2DArray(x, y));
                 gp2.add(button, y, x);
             }
@@ -146,19 +144,17 @@ public class GameStage {
         GridPane gp = new GridPane();
         for (int y = 0; y < this.dimension; y++) {
             for (int x = 0; x < this.dimension; x++) {
-                Button button = cardButton();
-                button.setText("U");
+                Button cardButton = newBlankCardButton();
+                cardButton.setText("U");
                 Integer xx = x;
                 Integer yy = y;
-                button.setOnMouseClicked((event) -> {
-                    boolean identical = this.gameBoard.identicalCardToPreviousButNotSame(xx, yy);
-
-                    if (identical) {
+                cardButton.setOnMouseClicked((event) -> {
+                    if (this.gameBoard.matchingCardInDifferentCoordinate(xx, yy)) {
                         this.firstMemoryButton.setText("F"); //Found
-                        button.setText("F");
+                        cardButton.setText("F");
                         this.foundNumbers.setText(gameBoard.foundPairsString());
                         this.firstMemoryButton.setOnMouseClicked(null);
-                        button.setOnMouseClicked(null);
+                        cardButton.setOnMouseClicked(null);
 
                     } else {
 
@@ -168,18 +164,18 @@ public class GameStage {
                             this.firstMemoryButton.setText("T");
                         }
 
-                        button.setText(gameBoard.getCardNameFromCard2DArray(xx, yy));
-                        this.firstMemoryButton = button;
+                        cardButton.setText(gameBoard.getCardNameFromCard2DArray(xx, yy));
+                        this.firstMemoryButton = cardButton;
                     }
                 });
-                gp.add(button, y, x);
+                gp.add(cardButton, y, x);
 
             }
         }
         return gp;
     }
 
-    public Button cardButton() {
+    public Button newBlankCardButton() {
         Button cardButton = new Button();
         cardButton.setFont(Font.font(50));
         cardButton.setMinSize(250, 150);

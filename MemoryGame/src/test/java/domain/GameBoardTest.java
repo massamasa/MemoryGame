@@ -44,8 +44,8 @@ public class GameBoardTest {
     public void identicalCheckreturnsFalseForTheSameCoordinate() {
         int x = 0;
         int y = 0;
-        boolean first = logic.identicalCardToPreviousButNotSame(x, y);
-        boolean second = logic.identicalCardToPreviousButNotSame(x, y);
+        boolean first = logic.matchingCardInDifferentCoordinate(x, y);
+        boolean second = logic.matchingCardInDifferentCoordinate(x, y);
         assertFalse(first);
         assertFalse(second);
     }
@@ -58,8 +58,8 @@ public class GameBoardTest {
         boolean second = false;
         for (int y = 0; y < dimension; y++) {
             for (int x = 1; x < dimension; x++) {
-                first = logic.identicalCardToPreviousButNotSame(0, 0);
-                second = logic.identicalCardToPreviousButNotSame(x, y);
+                first = logic.matchingCardInDifferentCoordinate(0, 0);
+                second = logic.matchingCardInDifferentCoordinate(x, y);
                 if (second) {
                     assertEquals("Found: " + logic.getCardIntegerFromCard2DArray(0, 0) + ", ", logic.foundPairsString());
                 }
@@ -77,8 +77,8 @@ public class GameBoardTest {
         boolean second = false;
         for (int y = 0; y < dimension; y++) {
             for (int x = 0; x < dimension; x++) {
-                first = logic.identicalCardToPreviousButNotSame(firstX, firstY);
-                second = logic.identicalCardToPreviousButNotSame(x, y);
+                first = logic.matchingCardInDifferentCoordinate(firstX, firstY);
+                second = logic.matchingCardInDifferentCoordinate(x, y);
                 if (second) {
                     assertEquals(logic.getCardIntegerFromCard2DArray(firstX, firstY), logic.getCardIntegerFromCard2DArray(x, y));
                     successes++;

@@ -11,7 +11,7 @@ public class Gui extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
+        primaryStage.setTitle("Memory Game");
         Scene startMenu = new StartMenu(primaryStage).startingScene();
         primaryStage.setScene(startMenu);
         primaryStage.show();

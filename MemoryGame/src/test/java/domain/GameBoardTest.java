@@ -1,6 +1,5 @@
 package domain;
 
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,13 +33,12 @@ public class GameBoardTest {
     public void tearDown() {
     }
 
+    /**
+     * Chooses a card, then chooses the same card and returns false because of
+     * the identical coordinates
+     */
     @Test
-    public void nameIsString() {
-        assertEquals(logic.getCardNameFromCard2DArray(0, 0).getClass(), new String("hou").getClass());
-    }
-
-    @Test
-    public void identicalCheckreturnsFalseForTheSameCoordinate() {
+    public void matchingCheckreturnsFalseForTheSameCoordinate() {
         int x = 0;
         int y = 0;
         boolean first = logic.matchingCardInDifferentCoordinate(x, y);
@@ -49,6 +47,11 @@ public class GameBoardTest {
         assertFalse(second);
     }
 
+    /**
+     *
+     * Searches for two matching cards in an array and checks the form of the
+     * String returned by foundPairsString()
+     */
     @Test
     public void StringBuilderWorks() {
 
@@ -60,15 +63,19 @@ public class GameBoardTest {
                 first = logic.matchingCardInDifferentCoordinate(0, 0);
                 second = logic.matchingCardInDifferentCoordinate(x, y);
                 if (second) {
-                    assertEquals("Found: " + logic.getCardIntegerFromCard2DArray(0, 0) + ", ", logic.foundPairsString());
+                    assertEquals("Found: " + logic.getCardNameFromCard2DArray(0, 0) + ", ", logic.foundPairsString());
                 }
             }
         }
 
     }
 
+    /**
+     * Searches for two matching cards in an array and checks if pairs can be
+     * found.
+     */
     @Test
-    public void identicalCheckreturnsTrueIfSuccessorEqualsPrevious() {
+    public void matchingCheckReturnsTrueIfSuccessorEqualsPrevious() {
         int firstX = 0;
         int firstY = 0;
         int successes = 0;

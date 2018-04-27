@@ -1,14 +1,18 @@
 package ui;
 
-import domain.MenuLogic;
+import domain.DataLogic;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Gui extends Application {
 
-    
-    
+    /**
+     * This is a launcher class for other scene classes.
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Memory Game");

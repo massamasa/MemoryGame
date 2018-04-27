@@ -9,19 +9,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-/**
- *
- * @author mattiost
- */
 public class CountryGameBoard extends GameBoard {
 
+    /**
+     * An alternate GameBoard extension to play with country codes instead of
+     * plain integers.
+     *
+     * @param dimension
+     */
     public CountryGameBoard(int dimension) {
         super(dimension);
 
     }
 
     @Override
-    public ArrayList<Card> createCards() {
+    protected ArrayList<Card> createCards() {
         ArrayList<Card> cardList = new ArrayList<>();
         String[] codes = this.countryCodes();
         for (int i = 1; cardList.size() < dimension * dimension; i++) {
@@ -32,7 +34,7 @@ public class CountryGameBoard extends GameBoard {
         return cardList;
     }
 
-    public String[] countryCodes() {
+    private String[] countryCodes() {
         String[] countryArray = new String[]{
             "AF",
             "AL",

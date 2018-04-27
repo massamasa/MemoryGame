@@ -1,6 +1,6 @@
 package ui;
 
-import domain.MenuLogic;
+import domain.DataLogic;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -22,15 +22,23 @@ public class StartMenu {
     private Label sizeIntegerLabel;
     private Stage primaryStage;
     private TextField nicknameTextArea;
-    private MenuLogic menuLogic;
+    private DataLogic menuLogic;
     private String gameMode;
 
+    /**
+     * Provides a graphical user interface for adjusting game settings, acessing
+     * the high score scene and the game stage via a start menu.
+     *
+     * @param primaryStage
+     * @throws SQLException
+     * @throws IOException
+     */
     public StartMenu(Stage primaryStage) throws SQLException, IOException {
         this.primaryStage = primaryStage;
         this.dimension = 4;
         this.sizeIntegerLabel = new Label("" + dimension);
         this.nicknameTextArea = new TextField("nickname");
-        this.menuLogic = new MenuLogic();
+        this.menuLogic = new DataLogic();
         this.gameMode = "Plain Integers";
     }
 
@@ -65,7 +73,7 @@ public class StartMenu {
                 "Country Codes"
         );
         ComboBox modeCBox = new ComboBox(modeList);
-        
+
         modeCBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             gameMode = (String) newValue;
         });

@@ -48,17 +48,17 @@ public class CardTest {
     @Test
     public void CardCanBeChecked() {
         Card card = new Card(1);
-        assertFalse(card.isChecked());
+        assertFalse(card.hasBeenCheckedBefore());
         card.setChecked(true);
-        assertTrue(card.isChecked());
+        assertTrue(card.hasBeenCheckedBefore());
     }
     
     @Test
     public void CardCanBeFound() {
         Card card = new Card(1);
-        assertFalse(card.isFound());
+        assertFalse(card.hasBeenFound());
         card.setFound(true);
-        assertTrue(card.isFound());
+        assertTrue(card.hasBeenFound());
     }
 
 }

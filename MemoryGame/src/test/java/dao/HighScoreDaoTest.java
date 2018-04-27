@@ -1,6 +1,5 @@
 package dao;
 
-
 import dao.HighScoreDao;
 import domain.Score;
 import java.io.IOException;
@@ -13,15 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author mattiost
- */
 public class HighScoreDaoTest {
 
     HighScoreDao hsDao;
@@ -36,19 +26,26 @@ public class HighScoreDaoTest {
     @AfterClass
     public static void tearDownClass() {
     }
-
+    /**
+     * Sets up a new database file for testing
+     * @throws IOException
+     * @throws SQLException 
+     */
     @Before
     public void setUp() throws IOException, SQLException {
         hsDao = new HighScoreDao("HighScoresTesting.db");
 
-        hsDao.deleteOldHighScoreDao();
-        hsDao.initializeHighScoreDaoIfNone();
+        hsDao.deleteOldHighScoreDatabase();
+        hsDao.initializeHighScoreDaoIfNoneOrCorrupt();
     }
 
     @After
     public void tearDown() {
     }
-
+    /**
+     * Tests adding a score to the database by adding one.
+     * @throws SQLException 
+     */
     @Test
     public void canAddScore() throws SQLException {
         double seconds = 24.9;
@@ -56,9 +53,12 @@ public class HighScoreDaoTest {
         hsDao.addScore(score, 2);
         ArrayList<Score> scores = hsDao.getScores(2);
         assertEquals("THRILLHO", scores.get(0).getNickname());
-        assertTrue(scores.get(0).getSeconds() == seconds);
+        assertTrue(scores.get(0).getTime() == seconds);
     }
-
+    /**
+     * Tests the sorting of the scores.
+     * @throws SQLException 
+     */
     @Test
     public void scoresSorted() throws SQLException {
         Score scoreSlower = new Score("THRILLHO", 28.9);
@@ -67,9 +67,9 @@ public class HighScoreDaoTest {
         hsDao.addScore(scoreFaster, 2);
         ArrayList<Score> scores = hsDao.getScores(2);
         assertEquals("THRILLHO", scores.get(0).getNickname());
-        assertTrue(24.9 == scores.get(0).getSeconds());
+        assertTrue(24.9 == scores.get(0).getTime());
         assertEquals("THRILLHO", scores.get(1).getNickname());
-        assertTrue(28.9 == scores.get(1).getSeconds());
+        assertTrue(28.9 == scores.get(1).getTime());
     }
 
 }

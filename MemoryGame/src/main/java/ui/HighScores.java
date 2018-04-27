@@ -5,7 +5,7 @@
  */
 package ui;
 
-import domain.MenuLogic;
+import domain.DataLogic;
 import domain.Score;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,16 +23,26 @@ public class HighScores {
 
     private Stage primaryStage;
 
+    /**
+     * Scene object that provides a graphical user interface for displaying
+     * highscores
+     *
+     * @param dimension
+     * @param primaryStage
+     * @return
+     * @throws SQLException
+     * @throws IOException
+     */
     public Scene highScoreScene(int dimension, Stage primaryStage) throws SQLException, IOException {
         this.primaryStage = primaryStage;
         GridPane scoreGp = new GridPane();
-        ArrayList<Score> scoreList = new MenuLogic().getScoreList(dimension);
+        ArrayList<Score> scoreList = new DataLogic().getScoreList(dimension);
         scoreGp.add(new Label("Nickname"), 0, 0);
         scoreGp.add(new Label("|  Seconds"), 1, 0);
         for (int i = 0; i < scoreList.size(); i++) {
             Score score = scoreList.get(i);
             scoreGp.add(new Label(score.getNickname()), 0, i + 1);
-            scoreGp.add(new Label("|  " + score.getSeconds()), 1, i + 1);
+            scoreGp.add(new Label("|  " + score.getTime()), 1, i + 1);
 
         }
         VBox verticalLayout = new VBox();

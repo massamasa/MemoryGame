@@ -20,4 +20,5 @@
 | 	| 1 | added tests for countrycode game mode and card class |
 | 23.4. | 1 | improved consistency in highscoredao and updated readme.md |
 | 24.4. | 3 | updated architecture documentation |
+| 27.4.	| 3 | added javadoc to all public methods |
 | Total | 34   | | 

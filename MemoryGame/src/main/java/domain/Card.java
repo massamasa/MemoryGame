@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
-/**
- *
- * @author mattiost
- */
 public class Card {
 
     private boolean checked;
@@ -16,10 +7,13 @@ public class Card {
     private int cardNumber;
     private String name;
 
-    public int getCardNumber() {
-        return cardNumber;
-    }
-
+    /**
+     * Card object with the specified card number as its identifying integer and
+     * name
+     *
+     * @param cardNumber identifying integer for logic purposes and also the
+     * value shown on the face of the card
+     */
     public Card(int cardNumber) {
         this.name = cardNumber + "";
         this.cardNumber = cardNumber;
@@ -27,6 +21,13 @@ public class Card {
         this.found = false;
     }
 
+    /**
+     * Card object with the specified card number as its identifying integer and
+     * a String as its name
+     *
+     * @param cardNumber identifying integer for logic purposes
+     * @param name String shown on the face of the card
+     */
     public Card(int cardNumber, String name) {
         this.name = name;
         this.cardNumber = cardNumber;
@@ -34,11 +35,15 @@ public class Card {
         this.found = false;
     }
 
-    public boolean isChecked() {
+    public int getCardNumber() {
+        return cardNumber;
+    }
+
+    public boolean hasBeenCheckedBefore() {
         return checked;
     }
 
-    public boolean isFound() {
+    public boolean hasBeenFound() {
         return found;
     }
 

@@ -2,7 +2,7 @@ package ui;
 
 import domain.CountryGameBoard;
 import domain.GameBoard;
-import domain.MenuLogic;
+import domain.DataLogic;
 import domain.Score;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,16 +35,34 @@ public class GameStage {
     private Button returnToMenuButton;
     private int gameType;
 
+    /**
+     * Default GameStage object with plain Integers
+     *
+     * @param primaryStage
+     */
     public GameStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.gameType = 0;
     }
 
+    /**
+     * GameStage object with an option to change game types
+     *
+     * @param primaryStage
+     * @param gameType 0 for plain integers, 1 for country codes
+     */
     public GameStage(Stage primaryStage, int gameType) {
         this.primaryStage = primaryStage;
         this.gameType = gameType;
     }
 
+    /**
+     * Scene providing the graphical user interface for playing the game.
+     *
+     * @param dimension
+     * @param nickname
+     * @return
+     */
     public Scene gameScene(int dimension, String nickname) {
         this.dimension = dimension;
         this.timer = 0;
@@ -106,7 +124,7 @@ public class GameStage {
                         scoreVbox.getChildren().add(returnToMenuButton);
                         bp.setCenter(scoreVbox);
                         try {
-                            new MenuLogic().addScore(dimension, new Score(nickname, score));
+                            new DataLogic().addScore(dimension, new Score(nickname, score));
                         } catch (SQLException ex) {
                             Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (IOException ex) {
@@ -127,8 +145,8 @@ public class GameStage {
         }.start();
         return scene;
     }
-
-    public GridPane nakedGp() {
+    
+    private GridPane nakedGp() {
         GridPane gp2 = new GridPane();
         for (int y = 0; y < this.dimension; y++) {
             for (int x = 0; x < this.dimension; x++) {
@@ -140,7 +158,7 @@ public class GameStage {
         return gp2;
     }
 
-    public GridPane playableGp() {
+    private GridPane playableGp() {
         GridPane gp = new GridPane();
         for (int y = 0; y < this.dimension; y++) {
             for (int x = 0; x < this.dimension; x++) {
@@ -175,7 +193,7 @@ public class GameStage {
         return gp;
     }
 
-    public Button newBlankCardButton() {
+    private Button newBlankCardButton() {
         Button cardButton = new Button();
         cardButton.setFont(Font.font(50));
         cardButton.setMinSize(250, 150);

@@ -21,4 +21,5 @@
 | 23.4. | 1 | improved consistency in highscoredao and updated readme.md |
 | 24.4. | 3 | updated architecture documentation |
 | 27.4.	| 3 | added javadoc to all public methods |
-| Total | 37   | | 
+| 28.4. | 1 | fixed javadoc and added user manual |
+| Total | 38   | | 

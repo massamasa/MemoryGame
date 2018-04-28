@@ -41,7 +41,10 @@ public class StartMenu {
         this.menuLogic = new DataLogic();
         this.gameMode = "Plain Integers";
     }
-
+/**
+ * Start menu Scene
+ * @return Scene with start menu functionalities
+ */
     public Scene startingScene() {
         VBox verticalMenu = new VBox();
         HBox horizontalMenu = new HBox();

@@ -106,11 +106,9 @@ public class HighScoreDao {
     }
 
     /**
-     * Returns an ArrayList of scores derived from the database table
+     * @param dimension Dimension 2, 4, 6
+     * @return an ArrayList of scores derived from the database table
      * corresponding to the specified dimension
-     *
-     * @param dimension
-     * @return
      * @throws SQLException
      */
     public ArrayList<Score> getScores(int dimension) throws SQLException {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import domain.DataLogic;
@@ -24,12 +19,11 @@ public class HighScores {
     private Stage primaryStage;
 
     /**
-     * Scene object that provides a graphical user interface for displaying
-     * highscores
+     * Scene that provides a graphical user interface for displaying highscores
      *
-     * @param dimension
+     * @param dimension 2, 4, 6
      * @param primaryStage
-     * @return
+     * @return Scene object
      * @throws SQLException
      * @throws IOException
      */

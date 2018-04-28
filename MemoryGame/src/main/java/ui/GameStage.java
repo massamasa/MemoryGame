@@ -59,9 +59,9 @@ public class GameStage {
     /**
      * Scene providing the graphical user interface for playing the game.
      *
-     * @param dimension
-     * @param nickname
-     * @return
+     * @param dimension rectangular dimensions of the game board's card table
+     * @param nickname player's nickname
+     * @return Scene object
      */
     public Scene gameScene(int dimension, String nickname) {
         this.dimension = dimension;
@@ -145,7 +145,7 @@ public class GameStage {
         }.start();
         return scene;
     }
-    
+
     private GridPane nakedGp() {
         GridPane gp2 = new GridPane();
         for (int y = 0; y < this.dimension; y++) {

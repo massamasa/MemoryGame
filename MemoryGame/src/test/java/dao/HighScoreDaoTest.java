@@ -26,10 +26,12 @@ public class HighScoreDaoTest {
     @AfterClass
     public static void tearDownClass() {
     }
+
     /**
      * Sets up a new database file for testing
+     *
      * @throws IOException
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Before
     public void setUp() throws IOException, SQLException {
@@ -42,9 +44,11 @@ public class HighScoreDaoTest {
     @After
     public void tearDown() {
     }
+
     /**
      * Tests adding a score to the database by adding one.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     @Test
     public void canAddScore() throws SQLException {
@@ -55,9 +59,11 @@ public class HighScoreDaoTest {
         assertEquals("THRILLHO", scores.get(0).getNickname());
         assertTrue(scores.get(0).getTime() == seconds);
     }
+
     /**
      * Tests the sorting of the scores.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     @Test
     public void scoresSorted() throws SQLException {

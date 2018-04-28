@@ -24,7 +24,7 @@ public class DataLogic {
      * List of scores from the database table corresponding to the dimension
      * specified.
      *
-     * @param dimension
+     * @param dimension Dimension 2, 4, 6
      * @return ArrayList of score objects
      * @throws SQLException
      */
@@ -35,7 +35,7 @@ public class DataLogic {
     /**
      * Adds a score score to the database.
      *
-     * @param dimension
+     * @param dimension Dimension 2, 4, 6
      * @throws SQLException
      */
     public void addScore(int dimension, Score score) throws SQLException {

@@ -21,8 +21,7 @@ public class GameBoard {
      * gameStage
      *
      * @see ui.GameStage
-     * @param dimension the rectangular dimensions of the table of cards. 2,4 or
-     * 6
+     * @param dimension rectangular dimensions of the table of cards. 2,4 or 6
      */
     public GameBoard(int dimension) {
         this.pairSb = new StringBuilder("Found: ");
@@ -52,7 +51,7 @@ public class GameBoard {
     /**
      * A method for creating a list of card objects to be used in the card Array
      *
-     * @return
+     * @return ArrayList containing cards
      */
     protected ArrayList<Card> createCards() {
         ArrayList<Card> cardList = new ArrayList<>();

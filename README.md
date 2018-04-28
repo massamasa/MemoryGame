@@ -15,26 +15,31 @@ A practice programming project for the course Ohjelmistotekniikan menetelmät at
 
 ### Testing
 Tests can be run with command
+```
 > mvn test
-
+```
 A test coverage report is created with command
-> mvn jacoco:report
-
+```
+mvn jacoco:report
+```
 ### Generating executable jar 
 An executable .jar file can be generated with command
-> mvn package
-
+```
+mvn package
+```
 ### Checkstyle
 Checkstyle tests defined in file [checkstyle.xml](https://github.com/massamasa/otm-harjoitustyo/blob/master/MemoryGame/checkstyle.xml) can be performed with the command
-> mvn jxr:jxr checkstyle:checkstyle
-
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
 Any error messages are found in the file at target/site/checkstyle.html
 
 
 ### Javadoc
 Javadoc is generated with command
-> mvn javadoc:javadoc
-
+```
+mvn javadoc:javadoc
+```
 Javadoc can be viewed by using a web browser to open file at target/site/apidocs/index.html
 
 ## Releases

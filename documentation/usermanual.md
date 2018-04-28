@@ -22,7 +22,7 @@ The user can choose to play with country codes by choosing the option from the d
 Highscores can be viewed for a chosen dimension by adjusting the dimension chosen with - and + and clicking HIGH SCORES.
 
 ## Playing the game
-The game is launched by clicking START GAME in the start menu after adjusting settings.
+The game stage is launched by clicking START GAME in the start menu after adjusting settings.
 
 The game is played by clicking on cards to display their face and clicking on a second card to check if it is a match. 
 Clicking on a new card will hide the previous card and mark it as touched (T) or mark it as found (F) if it is a match.

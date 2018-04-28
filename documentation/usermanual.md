@@ -7,8 +7,9 @@ If there are any issues with saving scores or viewing them, the user may have to
 
 ## Launching the application
 The application is launched with command
-> - java -jar Memory.Game.jar
-
+```
+java -jar Memory.Game.jar
+```
 ## Adjusting settings before a game and navigating the menu
 The application displays the start menu at launch. 
 

@@ -2,6 +2,9 @@ package ui;
 
 import domain.DataLogic;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,10 +44,12 @@ public class StartMenu {
         this.menuLogic = new DataLogic();
         this.gameMode = "Plain Integers";
     }
-/**
- * Start menu Scene
- * @return Scene with start menu functionalities
- */
+
+    /**
+     * Start menu Scene
+     *
+     * @return Scene with start menu functionalities
+     */
     public Scene startingScene() {
         VBox verticalMenu = new VBox();
         HBox horizontalMenu = new HBox();
@@ -108,7 +113,7 @@ public class StartMenu {
     private Button startButton() {
         Button start = new Button("START");
         start.setOnMouseClicked((event) -> {
-            String nickname = nicknameTextArea.getText().substring(0, 8);
+            String nickname = nicknameTextArea.getText();
             if (this.gameMode.equals("Country Codes")) {
                 primaryStage.setScene(new GameStage(primaryStage, 1).gameScene(this.dimension, nickname));
             } else {
@@ -121,7 +126,7 @@ public class StartMenu {
     private Button highScoresButton() {
         Button start = new Button("HIGH SCORES");
         start.setOnMouseClicked((event) -> {
-            String nickname = nicknameTextArea.getText().substring(0, 8);
+            String nickname = nicknameTextArea.getText();
             try {
                 primaryStage.setScene(new HighScores().highScoreScene(dimension, primaryStage));
             } catch (SQLException ex) {

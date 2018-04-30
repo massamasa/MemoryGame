@@ -12,7 +12,13 @@ public class Score {
      * @param time
      */
     public Score(String nickname, double time) {
-        this.nickname = nickname;
+        if (nickname.isEmpty()) {
+            this.nickname = "ANON";
+        } else if (nickname.length() > 8) {
+            this.nickname = nickname.substring(0, 8);
+        } else {
+            this.nickname = nickname;
+        }
         this.time = time;
     }
 

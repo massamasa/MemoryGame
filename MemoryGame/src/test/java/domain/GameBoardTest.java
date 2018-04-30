@@ -9,8 +9,8 @@ import static org.junit.Assert.*;
 
 public class GameBoardTest {
 
-    GameBoard logic;
-    int dimension;
+    private GameBoard logic;
+    private int dimension;
 
     public GameBoardTest() {
     }

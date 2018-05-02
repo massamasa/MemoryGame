@@ -50,10 +50,8 @@ public class HighScores {
         returnButton.setOnMouseClicked((event) -> {
             try {
                 primaryStage.setScene(new StartMenu(primaryStage).startingScene());
-            } catch (SQLException ex) {
-                Logger.getLogger(HighScores.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(HighScores.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+
             }
         });
         return returnButton;

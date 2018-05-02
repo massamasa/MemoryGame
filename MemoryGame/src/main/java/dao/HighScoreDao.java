@@ -38,25 +38,18 @@ public class HighScoreDao {
     }
 
     /**
-     * Initializes a .db file for storing scores if one is not present. Checks
+     * Initialises a .db file for storing scores if one is not present. Checks
      * the integrity of the file and tries to create a new .db if it is corrupt
      *
      * @throws SQLException
      * @throws IOException
      */
-    public void initializeHighScoreDaoIfNoneOrCorrupt() throws SQLException, IOException {
-        if (Files.exists(Paths.get(fileName))) {
-            if (!fileHasIntegrity()) {
-                deleteOldHighScoreDatabase();
-                initializeHighScoreDaoIfNoneOrCorrupt();
-            }
-            return;
-        }
+    public void initializeHighScoreDao() throws SQLException, IOException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
         connection.setAutoCommit(false);
-        PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE HighScores2(nickname varchar(8), seconds double)");
-        PreparedStatement stmt4 = connection.prepareStatement("CREATE TABLE HighScores4(nickname varchar(8), seconds double)");
-        PreparedStatement stmt6 = connection.prepareStatement("CREATE TABLE HighScores6(nickname varchar(8), seconds double)");
+        PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS HighScores2(nickname varchar(8), seconds double)");
+        PreparedStatement stmt4 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS HighScores4(nickname varchar(8), seconds double)");
+        PreparedStatement stmt6 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS HighScores6(nickname varchar(8), seconds double)");
         stmt2.executeUpdate();
         stmt4.executeUpdate();
         stmt6.executeUpdate();
@@ -92,17 +85,6 @@ public class HighScoreDao {
         stmt.executeUpdate();
         stmt.close();
         connection.close();
-    }
-
-    private boolean fileHasIntegrity() throws SQLException {
-        try {
-            getScores(6);
-            getScores(4);
-            getScores(2);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
     }
 
     /**

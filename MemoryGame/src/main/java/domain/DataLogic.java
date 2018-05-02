@@ -17,7 +17,7 @@ public class DataLogic {
      */
     public DataLogic() throws SQLException, IOException {
         hsDao = new HighScoreDao();
-        hsDao.initializeHighScoreDaoIfNoneOrCorrupt();
+        hsDao.initializeHighScoreDao();
     }
 
     /**

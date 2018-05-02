@@ -119,6 +119,7 @@ public class StartMenu {
             } else {
                 primaryStage.setScene(new GameStage(primaryStage).gameScene(this.dimension, nickname));
             }
+            primaryStage.centerOnScreen();
         });
         return start;
     }
@@ -129,10 +130,7 @@ public class StartMenu {
             String nickname = nicknameTextArea.getText();
             try {
                 primaryStage.setScene(new HighScores().highScoreScene(dimension, primaryStage));
-            } catch (SQLException ex) {
-                Logger.getLogger(StartMenu.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(StartMenu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
             }
         });
         return start;

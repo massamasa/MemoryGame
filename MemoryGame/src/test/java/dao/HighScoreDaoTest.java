@@ -38,7 +38,7 @@ public class HighScoreDaoTest {
         hsDao = new HighScoreDao("HighScoresTesting.db");
 
         hsDao.deleteOldHighScoreDatabase();
-        hsDao.initializeHighScoreDaoIfNoneOrCorrupt();
+        hsDao.initializeHighScoreDao();
     }
 
     @After

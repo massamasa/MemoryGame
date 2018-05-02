@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,8 +29,8 @@ public class GameStage {
     private int dimension;
     private GameBoard gameBoard;
     private Label foundNumbers;
-    private GridPane gp;
-    private GridPane gp2;
+    private GridPane playableGp;
+    private GridPane blankGp;
     private Label penaltyLabel;
     private Stage primaryStage;
     private Button returnToMenuButton;
@@ -72,12 +73,12 @@ public class GameStage {
         } else {
             this.gameBoard = new GameBoard(dimension);
         }
-        this.gp = playableGp();
-        this.gp2 = nakedGp();
-        BorderPane bp = new BorderPane(gp);
-        Label timerLabel = new Label("0");
-        this.penaltyLabel = new Label("Recheck penalty: ");
-        this.foundNumbers = new Label("Found: ");
+        this.playableGp = playableGp();
+        this.blankGp = nakedGp();
+        BorderPane bp = new BorderPane(playableGp);
+        Label timerLabel = newLabelRightSize("0");
+        this.penaltyLabel = newLabelRightSize("Recheck penalty: ");
+        this.foundNumbers = newLabelRightSize("Found: ");
         bp.setBottom(this.foundNumbers);
 
         BorderPane timerBp = new BorderPane();
@@ -88,24 +89,22 @@ public class GameStage {
         returnToMenuButton.setOnMouseClicked((event) -> {
             try {
                 primaryStage.setScene(new StartMenu(primaryStage).startingScene());
-            } catch (SQLException ex) {
-                Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+
             }
         });
-        Scene scene = new Scene(bp);
+        Scene gameScene = new Scene(bp);
 
-        scene.setOnKeyPressed((event) -> {
+        gameScene.setOnKeyPressed((event) -> {
             if (event.getCode().equals(KeyCode.S)) {
                 this.spaceDown = true;
-                bp.setCenter(this.gp2);
+                bp.setCenter(this.blankGp);
             }
         });
-        scene.setOnKeyReleased((event) -> {
+        gameScene.setOnKeyReleased((event) -> {
             if (event.getCode().equals(KeyCode.S)) {
                 this.spaceDown = false;
-                bp.setCenter(this.gp);
+                bp.setCenter(this.playableGp);
             }
         });
 
@@ -119,16 +118,14 @@ public class GameStage {
                         double finalTime = (timer / 10.0);
                         double score = finalTime + gameBoard.getCardCheckedPenalty();
                         VBox scoreVbox = new VBox();
-                        Label scoreLabel = new Label("Score: " + score);
+                        Label scoreLabel = newLabelRightSize("Score: " + score);
                         scoreVbox.getChildren().add(scoreLabel);
                         scoreVbox.getChildren().add(returnToMenuButton);
                         bp.setCenter(scoreVbox);
                         try {
                             new DataLogic().addScore(dimension, new Score(nickname, score));
-                        } catch (SQLException ex) {
-                            Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(GameStage.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (Exception ex) {
+
                         }
 
                         stop();
@@ -143,7 +140,7 @@ public class GameStage {
                 }
             }
         }.start();
-        return scene;
+        return gameScene;
     }
 
     private GridPane nakedGp() {
@@ -193,11 +190,17 @@ public class GameStage {
         return gp;
     }
 
+    private Label newLabelRightSize(String text) {
+        Label rightSizeLabel = new Label(text);
+        rightSizeLabel.setFont(Font.font(20));
+        return rightSizeLabel;
+    }
+
     private Button newBlankCardButton() {
         Button cardButton = new Button();
-        cardButton.setFont(Font.font(50));
-        cardButton.setMinSize(250, 150);
-        cardButton.setMaxSize(250, 150);
+        cardButton.setFont(Font.font(40));
+        cardButton.setMinSize(160, 90);
+        cardButton.setMaxSize(160, 90);
         return cardButton;
     }
 

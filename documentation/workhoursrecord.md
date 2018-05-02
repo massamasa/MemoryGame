@@ -22,4 +22,5 @@
 | 24.4. | 3 | updated architecture documentation |
 | 27.4.	| 3 | added javadoc to all public methods |
 | 28.4. | 1 | fixed javadoc and added user manual |
-| Total | 38   | | 
+| 2.5. | 1 | Removed loggers, cleaned HighScoreDao and tweaked font sizes in Ui |
+| Total | 39   | | 

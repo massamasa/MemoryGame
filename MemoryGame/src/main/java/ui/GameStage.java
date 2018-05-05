@@ -9,19 +9,22 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class GameStage {
 
+    private StartMenu startMenuToGoBackto;
     private Button firstMemoryButton;
     private int timer;
     private int penalty;
@@ -33,39 +36,31 @@ public class GameStage {
     private GridPane blankGp;
     private Label penaltyLabel;
     private Stage primaryStage;
-    private Button returnToMenuButton;
     private int gameType;
+    private BorderPane mainSceneBorderpane;
+    private String nickname;
+    private Label timerLabel;
+    private String colorUntouched;
+    private String colorTouched;
+    private String colorFound;
 
     /**
-     * Default GameStage object with plain Integers
      *
-     * @param primaryStage
+     * @param gameType Integer signifying gameType. Defaults to 0 to play with
+     * plain integers if invalid.
+     * @param dimension dimension 2, 4, 6
+     * @param nickname The players nickname
+     * @param startMenutoGoBackTo Start menu
      */
-    public GameStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.gameType = 0;
-    }
-
-    /**
-     * GameStage object with an option to change game types
-     *
-     * @param primaryStage
-     * @param gameType 0 for plain integers, 1 for country codes
-     */
-    public GameStage(Stage primaryStage, int gameType) {
-        this.primaryStage = primaryStage;
+    public GameStage(int gameType, int dimension, String nickname, StartMenu startMenutoGoBackTo) {
+        this.colorUntouched = "-fx-base: #ffffff;";
+        this.colorFound = "-fx-base: #7FFF00;";
+        this.colorTouched = "-fx-base: #FFD700;";
+        this.startMenuToGoBackto = startMenutoGoBackTo;
+        this.primaryStage = startMenutoGoBackTo.getPrimaryStage();
         this.gameType = gameType;
-    }
-
-    /**
-     * Scene providing the graphical user interface for playing the game.
-     *
-     * @param dimension rectangular dimensions of the game board's card table
-     * @param nickname player's nickname
-     * @return Scene object
-     */
-    public Scene gameScene(int dimension, String nickname) {
         this.dimension = dimension;
+        this.nickname = nickname;
         this.timer = 0;
         this.firstMemoryButton = newBlankCardButton();
         if (gameType == 1) {
@@ -73,42 +68,49 @@ public class GameStage {
         } else {
             this.gameBoard = new GameBoard(dimension);
         }
+    }
+
+    /**
+     * Scene providing the graphical user interface for playing the game.
+     *
+     * @return Scene object
+     */
+    public Scene gameScene() {
         this.playableGp = playableGp();
         this.blankGp = nakedGp();
-        BorderPane bp = new BorderPane(playableGp);
-        Label timerLabel = newLabelRightSize("0");
+        this.mainSceneBorderpane = new BorderPane(playableGp);
+        this.timerLabel = newLabelRightSize("0");
         this.penaltyLabel = newLabelRightSize("Recheck penalty: ");
         this.foundNumbers = newLabelRightSize("Found: ");
-        bp.setBottom(this.foundNumbers);
-
+        this.mainSceneBorderpane.setBottom(this.foundNumbers);
         BorderPane timerBp = new BorderPane();
         timerBp.setRight(timerLabel);
         timerBp.setLeft(penaltyLabel);
-        bp.setTop(timerBp);
-        returnToMenuButton = new Button("RETURN TO MENU");
-        returnToMenuButton.setOnMouseClicked((event) -> {
-            try {
-                primaryStage.setScene(new StartMenu(primaryStage).startingScene());
-            } catch (Exception ex) {
+        this.mainSceneBorderpane.setTop(timerBp);
+        Scene gameScene = new Scene(this.mainSceneBorderpane);
+        setUpSceneWithSKeyListeners(gameScene);
+        animationTimer().start();
 
-            }
-        });
-        Scene gameScene = new Scene(bp);
+        return gameScene;
+    }
 
+    private void setUpSceneWithSKeyListeners(Scene gameScene) {
         gameScene.setOnKeyPressed((event) -> {
             if (event.getCode().equals(KeyCode.S)) {
                 this.spaceDown = true;
-                bp.setCenter(this.blankGp);
+                this.mainSceneBorderpane.setCenter(this.blankGp);
             }
         });
         gameScene.setOnKeyReleased((event) -> {
             if (event.getCode().equals(KeyCode.S)) {
                 this.spaceDown = false;
-                bp.setCenter(this.playableGp);
+                this.mainSceneBorderpane.setCenter(this.playableGp);
             }
         });
+    }
 
-        new AnimationTimer() {
+    private AnimationTimer animationTimer() {
+        AnimationTimer aTimer = new AnimationTimer() {
             private long lastUpdate = 0;
 
             @Override
@@ -117,17 +119,7 @@ public class GameStage {
                     if (gameBoard.foundAllPairs()) {
                         double finalTime = (timer / 10.0);
                         double score = finalTime + gameBoard.getCardCheckedPenalty();
-                        VBox scoreVbox = new VBox();
-                        Label scoreLabel = newLabelRightSize("Score: " + score);
-                        scoreVbox.getChildren().add(scoreLabel);
-                        scoreVbox.getChildren().add(returnToMenuButton);
-                        bp.setCenter(scoreVbox);
-                        try {
-                            new DataLogic().addScore(dimension, new Score(nickname, score));
-                        } catch (Exception ex) {
-
-                        }
-
+                        primaryStage.setScene(finalScoreScene(nickname, score));
                         stop();
                     }
                     timerLabel.setText("Base: " + (timer / 10.0));
@@ -139,8 +131,22 @@ public class GameStage {
                     lastUpdate = now;
                 }
             }
-        }.start();
-        return gameScene;
+        };
+        return aTimer;
+    }
+
+    private Scene finalScoreScene(String nickname, double score) {
+        VBox scoreVbox = new VBox();
+        Label scoreLabel = newLabelRightSize("Score: " + score);
+        scoreVbox.getChildren().add(scoreLabel);
+        TextField nicknameTextField = new TextField(nickname);
+        scoreVbox.getChildren().add(nicknameTextField);
+        scoreVbox.getChildren().add(new Label("RETURN"));
+        BorderPane buttonBorderPane = new BorderPane();
+        buttonBorderPane.setLeft(returnToMenuButtonAndSave(nicknameTextField, score));
+        buttonBorderPane.setRight(returnToMenuButtonWithoutSaving());
+        scoreVbox.getChildren().add(buttonBorderPane);
+        return new Scene(scoreVbox);
     }
 
     private GridPane nakedGp() {
@@ -159,32 +165,8 @@ public class GameStage {
         GridPane gp = new GridPane();
         for (int y = 0; y < this.dimension; y++) {
             for (int x = 0; x < this.dimension; x++) {
-                Button cardButton = newBlankCardButton();
-                cardButton.setText("U");
-                Integer xx = x;
-                Integer yy = y;
-                cardButton.setOnMouseClicked((event) -> {
-                    if (this.gameBoard.matchingCardInDifferentCoordinate(xx, yy)) {
-                        this.firstMemoryButton.setText("F"); //Found
-                        cardButton.setText("F");
-                        this.foundNumbers.setText(gameBoard.foundPairsString());
-                        this.firstMemoryButton.setOnMouseClicked(null);
-                        cardButton.setOnMouseClicked(null);
-
-                    } else {
-
-                        penaltyLabel.setText("Recheck penalty: " + gameBoard.getCardCheckedPenalty());
-
-                        if (!this.firstMemoryButton.getText().equals("F")) {
-                            this.firstMemoryButton.setText("T");
-                        }
-
-                        cardButton.setText(gameBoard.getCardNameFromCard2DArray(xx, yy));
-                        this.firstMemoryButton = cardButton;
-                    }
-                });
+                Button cardButton = playableCardButton(x, y);
                 gp.add(cardButton, y, x);
-
             }
         }
         return gp;
@@ -202,6 +184,59 @@ public class GameStage {
         cardButton.setMinSize(160, 90);
         cardButton.setMaxSize(160, 90);
         return cardButton;
+    }
+
+    private Button playableCardButton(int x, int y) {
+        Button playableCardButton = newBlankCardButton();
+        playableCardButton.setStyle(colorUntouched);
+        Integer xx = x;
+        Integer yy = y;
+        playableCardButton.setOnMouseClicked((event) -> {
+            playableCardButton.setStyle(colorTouched);
+            playableCardButton.setText(this.gameBoard.getCardNameFromCard2DArray(x, y));
+            if (this.gameBoard.matchingCardInDifferentCoordinate(xx, yy)) {
+                playableCardButton.setStyle(colorFound);
+                playableCardButton.setText("X");
+                firstMemoryButton.setStyle(colorFound);
+                firstMemoryButton.setText("X");
+                this.foundNumbers.setText(gameBoard.foundPairsString());
+                this.firstMemoryButton.setOnMouseClicked(null);
+                playableCardButton.setOnMouseClicked(null);
+                
+            } else {
+                penaltyLabel.setText("Recheck penalty: " + gameBoard.getCardCheckedPenalty());
+                if (!this.firstMemoryButton.getText().equals("X")){
+                    this.firstMemoryButton.setText("");
+                }
+                playableCardButton.setText(gameBoard.getCardNameFromCard2DArray(xx, yy));
+                this.firstMemoryButton = playableCardButton;
+
+            }
+        }
+        );
+        return playableCardButton;
+    }
+
+    private Button returnToMenuButtonWithoutSaving() {
+        Button returnToMenuButton = new Button("WITHOUT SAVING");
+        returnToMenuButton.setOnMouseClicked((event) -> {
+            this.primaryStage.setScene(startMenuToGoBackto.getScene());
+        });
+        return returnToMenuButton;
+    }
+
+    private Button returnToMenuButtonAndSave(TextField nicknameTextField, double time) {
+        Button returnToMenuButton = new Button("AND SAVE SCORE");
+        returnToMenuButton.setOnMouseClicked((event) -> {
+            try {
+                String nickname = nicknameTextField.getText();
+                this.startMenuToGoBackto.setNickname(nickname);
+                new DataLogic().addScore(dimension, new Score(nickname, time));
+            } catch (Exception ex) {
+            }
+            this.primaryStage.setScene(startMenuToGoBackto.getScene());
+        });
+        return returnToMenuButton;
     }
 
 }

@@ -24,9 +24,10 @@ public class StartMenu {
     private int dimension;
     private Label sizeIntegerLabel;
     private Stage primaryStage;
-    private TextField nicknameTextArea;
     private DataLogic menuLogic;
     private String gameMode;
+    private Scene scene;
+    private String nickname;
 
     /**
      * Provides a graphical user interface for adjusting game settings, acessing
@@ -36,13 +37,14 @@ public class StartMenu {
      * @throws SQLException
      * @throws IOException
      */
-    public StartMenu(Stage primaryStage) throws SQLException, IOException {
+    public StartMenu(Stage primaryStage, String nickname, int dimension) throws SQLException, IOException {
         this.primaryStage = primaryStage;
-        this.dimension = 4;
+        this.nickname = nickname;
+        this.dimension = dimension;
         this.sizeIntegerLabel = new Label("" + dimension);
-        this.nicknameTextArea = new TextField("nickname");
         this.menuLogic = new DataLogic();
         this.gameMode = "Plain Integers";
+        this.scene = startingScene();
     }
 
     /**
@@ -67,7 +69,6 @@ public class StartMenu {
         horizontalMenu.getChildren().add(startButton);
 
         horizontalMenu.getChildren().add(highScoresButton);
-        verticalMenu.getChildren().add(nicknameTextArea);
         verticalMenu.getChildren().add(horizontalMenu);
 
         Scene scene = new Scene(verticalMenu);
@@ -75,6 +76,14 @@ public class StartMenu {
         return scene;
     }
 
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+    
     private ComboBox modeSelectDropdown() {
         ObservableList<String> modeList = FXCollections.observableArrayList(
                 "Plain Integers",
@@ -113,23 +122,25 @@ public class StartMenu {
     private Button startButton() {
         Button start = new Button("START");
         start.setOnMouseClicked((event) -> {
-            String nickname = nicknameTextArea.getText();
+            int gameType = 0; 
             if (this.gameMode.equals("Country Codes")) {
-                primaryStage.setScene(new GameStage(primaryStage, 1).gameScene(this.dimension, nickname));
-            } else {
-                primaryStage.setScene(new GameStage(primaryStage).gameScene(this.dimension, nickname));
+                gameType = 1;
             }
+            this.primaryStage.setScene(new GameStage(gameType, this.dimension, nickname, this).gameScene());
             primaryStage.centerOnScreen();
         });
         return start;
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     private Button highScoresButton() {
         Button start = new Button("HIGH SCORES");
         start.setOnMouseClicked((event) -> {
-            String nickname = nicknameTextArea.getText();
             try {
-                primaryStage.setScene(new HighScores().highScoreScene(dimension, primaryStage));
+                primaryStage.setScene(new HighScores(dimension, this).highScoreScene());
             } catch (Exception ex) {
             }
         });

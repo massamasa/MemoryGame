@@ -5,8 +5,6 @@ import domain.Score;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,18 +15,26 @@ import javafx.stage.Stage;
 public class HighScores {
 
     private Stage primaryStage;
+    private StartMenu startMenuToGoBackTo;
+    private final int dimension;
+/**
+ * Class for controlling the High Score view
+ * @param dimension Dimension 2, 4, 6
+ * @param startMenuToGoBackTo Start menu 
+ */
+    public HighScores(int dimension, StartMenu startMenuToGoBackTo) {
+        this.startMenuToGoBackTo = startMenuToGoBackTo;
+        this.primaryStage = this.startMenuToGoBackTo.getPrimaryStage();
+        this.dimension = dimension;
+    }
 
-    /**
-     * Scene that provides a graphical user interface for displaying highscores
-     *
-     * @param dimension 2, 4, 6
-     * @param primaryStage
-     * @return Scene object
-     * @throws SQLException
-     * @throws IOException
-     */
-    public Scene highScoreScene(int dimension, Stage primaryStage) throws SQLException, IOException {
-        this.primaryStage = primaryStage;
+   /**
+    * Scene that provides a graphical user interface for displaying highscores
+    * @return Scenne object
+    * @throws SQLException
+    * @throws IOException 
+    */
+    public Scene highScoreScene() throws SQLException, IOException {
         GridPane scoreGp = new GridPane();
         ArrayList<Score> scoreList = new DataLogic().getScoreList(dimension);
         scoreGp.add(new Label("Nickname"), 0, 0);
@@ -48,11 +54,7 @@ public class HighScores {
     private Button returnButton() {
         Button returnButton = new Button("RETURN TO MENU");
         returnButton.setOnMouseClicked((event) -> {
-            try {
-                primaryStage.setScene(new StartMenu(primaryStage).startingScene());
-            } catch (Exception ex) {
-
-            }
+                primaryStage.setScene(startMenuToGoBackTo.getScene());
         });
         return returnButton;
     }

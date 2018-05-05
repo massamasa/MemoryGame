@@ -10,7 +10,6 @@ public class GameBoard {
     private int previousX;
     private int previousY;
     private int pairsRight;
-    private boolean same;
     private ArrayList<Integer> foundPairs;
     private StringBuilder pairSb;
     private int penalty;
@@ -89,6 +88,7 @@ public class GameBoard {
      * @return false if different or the same coordinate is entered
      */
     public boolean matchingCardInDifferentCoordinate(int x, int y) {
+        this.card2DArray[y][x].setChecked(true);
         if (sameAsPrevious(x, y)) {
             return false;
         }
@@ -98,6 +98,8 @@ public class GameBoard {
             Card previousCard = this.card2DArray[previousY][previousX];
             int prev = previousCard.getCardNumber();
             if (succ == prev) {
+                previousCard.setFound(true);
+                succeedingCard.setFound(true);
                 changePreviousXY(-1, -1);
                 this.foundPairs.add(succ);
                 pairSb.append(succeedingCard.getCardName() + ", ");
@@ -106,7 +108,6 @@ public class GameBoard {
                 penalty++;
             }
         }
-        this.card2DArray[y][x].setChecked(true);
         changePreviousXY(x, y);
         return false;
     }

@@ -2,8 +2,7 @@
 Download the file [Memory.Game.jar](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.0)
 
 ## Configuration
-The application creates a database file HighScores.db in the executable file's root directory. 
-If there are any issues with saving scores or viewing them, the user may have to delete HighScores.db and run the program again.
+The application assumes your computer has [Sqlite3 binaries](https://www.sqlite.org/download.html) installed. The application creates a database file HighScores.db in the executable file's root directory in Windows and in the user's home directory in Linux.
 
 ## Launching the application
 The application is launched with command

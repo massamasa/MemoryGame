@@ -80,7 +80,10 @@ public class GameBoard {
 
     /**
      * Checks if the cards in the previously and currently specified different
-     * coordinates are correspondin by card number
+     * coordinates are corresponding by card number. Adds to the penalty counter
+     * if and only if 1. if the previous card wasn't part of a found pair 2. this
+     * card is not a match with the previous and 3. this card has been checked
+     * before.
      *
      * @param x
      * @param y
@@ -88,7 +91,6 @@ public class GameBoard {
      * @return false if different or the same coordinate is entered
      */
     public boolean matchingCardInDifferentCoordinate(int x, int y) {
-        this.card2DArray[y][x].setChecked(true);
         if (sameAsPrevious(x, y)) {
             return false;
         }
@@ -104,10 +106,12 @@ public class GameBoard {
                 this.foundPairs.add(succ);
                 pairSb.append(succeedingCard.getCardName() + ", ");
                 return true;
-            } else if (card2DArray[y][x].hasBeenCheckedBefore()) {
+            } else if (this.previousY != -1 && this.previousX != -1 && succeedingCard.hasBeenCheckedBefore()) {
                 penalty++;
             }
+            succeedingCard.setChecked(true);
         }
+
         changePreviousXY(x, y);
         return false;
     }

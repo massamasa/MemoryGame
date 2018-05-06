@@ -18,10 +18,8 @@ public class HighScoreDao {
     /**
      * HighScoreDao with a preset file name. Handles the connection between the
      * application and an SQLite database containing score data.
-     *
-     * @throws SQLException
      */
-    public HighScoreDao() throws SQLException {
+    public HighScoreDao() {
         this.fileName = "HighScores.db";
     }
 
@@ -31,42 +29,43 @@ public class HighScoreDao {
      * alternate filename is necessary for testing
      *
      * @param fileName alternate filename.
-     * @throws SQLException
      */
-    public HighScoreDao(String fileName) throws SQLException {
+    public HighScoreDao(String fileName) {
         this.fileName = fileName;
     }
 
     /**
-     * Initialises a .db file for storing scores if one is not present. Checks
-     * the integrity of the file and tries to create a new .db if it is corrupt
      *
-     * @throws SQLException
-     * @throws IOException
+     * Initialises a .db file for storing scores if one is not present.
+     *
+     * @param maxDimension The maximum rectangular dimensions the game can be
+     * played with.
      */
-    public void initializeHighScoreDao() throws SQLException, IOException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
-        connection.setAutoCommit(false);
-        PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS HighScores2(nickname varchar(8), seconds double)");
-        PreparedStatement stmt4 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS HighScores4(nickname varchar(8), seconds double)");
-        PreparedStatement stmt6 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS HighScores6(nickname varchar(8), seconds double)");
-        stmt2.executeUpdate();
-        stmt4.executeUpdate();
-        stmt6.executeUpdate();
-        connection.commit();
-        stmt2.close();
-        stmt4.close();
-        stmt6.close();
-        connection.close();
+    public void initializeHighScoreDao(int maxDimension) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
+            connection.setAutoCommit(false);
+            for (int i = 2; i <= maxDimension; i += 2) {
+                PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS HighScores" + i + " (nickname varchar(8), seconds double)");
+                stmt.executeUpdate();
+                stmt.close();
+            }
+            connection.commit();
+            connection.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 
     /**
-     * Deletes the old .db file if it exists
-     *
-     * @throws IOException
+     * Deletes the old .db file if it exists.
      */
-    public void deleteOldHighScoreDatabase() throws IOException {
-        Files.deleteIfExists(Paths.get(fileName));
+    public void deleteOldHighScoreDatabase() {
+        try {
+            Files.deleteIfExists(Paths.get(fileName));
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
     }
 
     /**
@@ -74,39 +73,47 @@ public class HighScoreDao {
      * specified dimension.
      *
      * @param score Score object
-     * @param dimension Dimension 2, 4, 6
+     * @param dimension Dimension of the tab
      */
-    public void addScore(Score score, int dimension) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
-        String tablename = "HighScores" + dimension;
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO " + tablename + " (nickname, seconds)  VALUES(?,  ?)");
-        stmt.setString(1, score.getNickname());
-        stmt.setDouble(2, score.getTime());
-        stmt.executeUpdate();
-        stmt.close();
-        connection.close();
+    public void addScore(Score score, int dimension) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
+            String tablename = "HighScores" + dimension;
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO " + tablename + " (nickname, seconds)  VALUES(?,  ?)");
+            stmt.setString(1, score.getNickname());
+            stmt.setDouble(2, score.getTime());
+            stmt.executeUpdate();
+            stmt.close();
+            connection.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 
     /**
-     * @param dimension Dimension 2, 4, 6
+     * @param dimension Played dimension of scores in table in database
      * @return an ArrayList of scores derived from the database table
      * corresponding to the specified dimension
-     * @throws SQLException
      */
-    public ArrayList<Score> getScores(int dimension) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
-        String tablename = "HighScores" + dimension;
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + tablename + " ORDER BY " + tablename + ".seconds");
-
-        ResultSet scoreRs = stmt.executeQuery();
+    public ArrayList<Score> getScores(int dimension) {
         ArrayList<Score> scoreList = new ArrayList<>();
-        while (scoreRs.next()) {
-            String nickname = scoreRs.getString("nickname");
-            double seconds = scoreRs.getDouble("seconds");
-            scoreList.add(new Score(nickname, seconds));
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
+            String tablename = "HighScores" + dimension;
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + tablename + " ORDER BY " + tablename + ".seconds");
+
+            ResultSet scoreRs = stmt.executeQuery();
+
+            while (scoreRs.next()) {
+                String nickname = scoreRs.getString("nickname");
+                double seconds = scoreRs.getDouble("seconds");
+                scoreList.add(new Score(nickname, seconds));
+            }
+            stmt.close();
+            connection.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
-        stmt.close();
-        connection.close();
         return scoreList;
     }
 

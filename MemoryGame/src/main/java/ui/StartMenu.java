@@ -1,20 +1,12 @@
 package ui;
 
 import domain.DataLogic;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,25 +16,30 @@ public class StartMenu {
     private int dimension;
     private Label sizeIntegerLabel;
     private Stage primaryStage;
-    private DataLogic menuLogic;
+    private DataLogic dataLogic;
     private String gameMode;
     private Scene scene;
     private String nickname;
+    private int maxDimension;
 
     /**
-     * Provides a graphical user interface for adjusting game settings, acessing
-     * the high score scene and the game stage via a start menu.
      *
-     * @param primaryStage
-     * @throws SQLException
-     * @throws IOException
+     * Provides a graphical user interface for adjusting game settings,
+     * accessing the high score scene and the game stage via a start menu.
+     *
+     *
+     * @param primaryStage primaryStage provided in Gui class
+     * @param nickname Default nickname
+     * @param recommendedDimension dimension to display by default
+     * @param maxDimension maximum dimension for the game
      */
-    public StartMenu(Stage primaryStage, String nickname, int dimension) throws SQLException, IOException {
+    public StartMenu(Stage primaryStage, String nickname, int recommendedDimension, int maxDimension) {
         this.primaryStage = primaryStage;
+        this.maxDimension = maxDimension;
         this.nickname = nickname;
-        this.dimension = dimension;
-        this.sizeIntegerLabel = new Label("" + dimension);
-        this.menuLogic = new DataLogic();
+        this.dimension = recommendedDimension;
+        this.sizeIntegerLabel = new Label("" + recommendedDimension);
+        this.dataLogic = new DataLogic(maxDimension);
         this.gameMode = "Plain Integers";
         this.scene = startingScene();
     }
@@ -83,7 +80,7 @@ public class StartMenu {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-    
+
     private ComboBox modeSelectDropdown() {
         ObservableList<String> modeList = FXCollections.observableArrayList(
                 "Plain Integers",
@@ -100,7 +97,7 @@ public class StartMenu {
     private Button plus() {
         Button plusButton = new Button("+");
         plusButton.setOnMouseClicked((event) -> {
-            if (dimension < 6) {
+            if (dimension < this.maxDimension) {
                 dimension += 2;
                 this.sizeIntegerLabel.setText("" + dimension);
             }
@@ -122,7 +119,7 @@ public class StartMenu {
     private Button startButton() {
         Button start = new Button("START");
         start.setOnMouseClicked((event) -> {
-            int gameType = 0; 
+            int gameType = 0;
             if (this.gameMode.equals("Country Codes")) {
                 gameType = 1;
             }
@@ -145,6 +142,10 @@ public class StartMenu {
             }
         });
         return start;
+    }
+
+    public DataLogic getDataLogic() {
+        return dataLogic;
     }
 
 }

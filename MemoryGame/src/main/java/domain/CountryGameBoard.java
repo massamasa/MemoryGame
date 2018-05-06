@@ -10,7 +10,7 @@ public class CountryGameBoard extends GameBoard {
      * An alternate GameBoard extension to play with country codes instead of
      * plain integers.
      *
-     * @param dimension Dimension 2, 4, 6
+     * @param dimension Dimension integer
      */
     public CountryGameBoard(int dimension) {
         super(dimension);

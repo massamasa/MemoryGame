@@ -2,22 +2,15 @@ package ui;
 
 import domain.CountryGameBoard;
 import domain.GameBoard;
-import domain.DataLogic;
 import domain.Score;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -48,9 +41,9 @@ public class GameStage {
      *
      * @param gameType Integer signifying gameType. Defaults to 0 to play with
      * plain integers if invalid.
-     * @param dimension dimension 2, 4, 6
-     * @param nickname The players nickname
-     * @param startMenutoGoBackTo Start menu
+     * @param dimension Rectangular dimension of the game
+     * @param nickname The player's nickname
+     * @param startMenutoGoBackTo Start menu in memory
      */
     public GameStage(int gameType, int dimension, String nickname, StartMenu startMenutoGoBackTo) {
         this.colorUntouched = "-fx-base: #ffffff;";
@@ -202,10 +195,10 @@ public class GameStage {
                 this.foundNumbers.setText(gameBoard.foundPairsString());
                 this.firstMemoryButton.setOnMouseClicked(null);
                 playableCardButton.setOnMouseClicked(null);
-                
+
             } else {
                 penaltyLabel.setText("Recheck penalty: " + gameBoard.getCardCheckedPenalty());
-                if (!this.firstMemoryButton.getText().equals("X")){
+                if (!this.firstMemoryButton.getText().equals("X")) {
                     this.firstMemoryButton.setText("");
                 }
                 playableCardButton.setText(gameBoard.getCardNameFromCard2DArray(xx, yy));
@@ -231,7 +224,7 @@ public class GameStage {
             try {
                 String nickname = nicknameTextField.getText();
                 this.startMenuToGoBackto.setNickname(nickname);
-                new DataLogic().addScore(dimension, new Score(nickname, time));
+                this.startMenuToGoBackto.getDataLogic().addScore(dimension, new Score(nickname, time));
             } catch (Exception ex) {
             }
             this.primaryStage.setScene(startMenuToGoBackto.getScene());

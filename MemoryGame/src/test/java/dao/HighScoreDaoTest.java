@@ -1,9 +1,6 @@
 package dao;
 
-import dao.HighScoreDao;
 import domain.Score;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,6 +12,8 @@ import static org.junit.Assert.*;
 public class HighScoreDaoTest {
 
     private HighScoreDao hsDao;
+    private int maxDimension;
+    private int minDimension;
 
     public HighScoreDaoTest() {
     }
@@ -30,15 +29,14 @@ public class HighScoreDaoTest {
     /**
      * Sets up a new database file for testing
      *
-     * @throws IOException
-     * @throws SQLException
      */
     @Before
-    public void setUp() throws IOException, SQLException {
-        hsDao = new HighScoreDao("HighScoresTesting.db");
-
-        hsDao.deleteOldHighScoreDatabase();
-        hsDao.initializeHighScoreDao();
+    public void setUp() {
+        this.minDimension = 2;
+        this.maxDimension = 10;
+        this.hsDao = new HighScoreDao("HighScoresTesting.db");
+        this.hsDao.deleteOldHighScoreDatabase();
+        this.hsDao.initializeHighScoreDao(10);
     }
 
     @After
@@ -47,33 +45,39 @@ public class HighScoreDaoTest {
 
     /**
      * Tests adding a score to the database by adding one.
-     *
-     * @throws SQLException
      */
     @Test
-    public void canAddScore() throws SQLException {
+    public void canAddScoreToMin() {
         double seconds = 24.9;
         Score score = new Score("THRILLHOUSE", seconds);
         hsDao.addScore(score, 2);
-        ArrayList<Score> scores = hsDao.getScores(2);
+        ArrayList<Score> scores = hsDao.getScores(minDimension);
         assertEquals("THRILLHO", scores.get(0).getNickname());
         assertTrue(scores.get(0).getTime() == seconds);
     }
 
+    
+    @Test
+    public void canAddScoreToMax() {
+        double seconds = 240.9;
+        Score score = new Score("THRILLHOUSE", seconds);
+        hsDao.addScore(score, maxDimension);
+        ArrayList<Score> scores = hsDao.getScores(maxDimension);
+        assertEquals("THRILLHO", scores.get(0).getNickname());
+        assertTrue(scores.get(0).getTime() == seconds);
+    }
     /**
      * Tests the sorting of the scores.
-     *
-     * @throws SQLException
      */
     @Test
-    public void scoresSorted() throws SQLException {
+    public void scoresSorted() {
         Score scoreSlower = new Score("THRILLHOUSE", 28.9);
         Score scoreMiddle = new Score("THRILLHOUSE", 26.9);
         Score scoreFaster = new Score("THRILLHOUSE", 24.9);
-        hsDao.addScore(scoreSlower, 2);
-        hsDao.addScore(scoreFaster, 2);
-        hsDao.addScore(scoreMiddle, 2);
-        ArrayList<Score> scores = hsDao.getScores(2);
+        hsDao.addScore(scoreSlower, minDimension);
+        hsDao.addScore(scoreFaster, minDimension);
+        hsDao.addScore(scoreMiddle, minDimension);
+        ArrayList<Score> scores = hsDao.getScores(minDimension);
         assertEquals("THRILLHO", scores.get(0).getNickname());
         assertTrue(24.9 == scores.get(0).getTime());
         assertEquals("THRILLHO", scores.get(1).getNickname());

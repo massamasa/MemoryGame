@@ -1,34 +1,29 @@
 package domain;
 
 import dao.HighScoreDao;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DataLogic {
 
-    HighScoreDao hsDao;
+    private HighScoreDao hsDao;
+    private int dimension;
 
     /**
-     * Works as a bridge to the highScoreDao. Initializes the HighScoreDao.
-     *
-     * @throws SQLException
-     * @throws IOException
+     * Works as a bridge to the highScoreDao. Initialises the HighScoreDao.
      */
-    public DataLogic() throws SQLException, IOException {
+    public DataLogic(int maxDimension) {
         hsDao = new HighScoreDao();
-        hsDao.initializeHighScoreDao();
+        hsDao.initializeHighScoreDao(maxDimension);
     }
 
     /**
      * List of scores from the database table corresponding to the dimension
      * specified.
      *
-     * @param dimension Dimension 2, 4, 6
-     * @return ArrayList of score objects
-     * @throws SQLException
+     * @param dimension
+     * @return ArrayList of Score objects
      */
-    public ArrayList<Score> getScoreList(int dimension) throws SQLException {
+    public ArrayList<Score> getScoreList(int dimension) {
         return hsDao.getScores(dimension);
     }
 
@@ -36,9 +31,8 @@ public class DataLogic {
      * Adds a score score to the database.
      *
      * @param dimension Dimension 2, 4, 6
-     * @throws SQLException
      */
-    public void addScore(int dimension, Score score) throws SQLException {
+    public void addScore(int dimension, Score score) {
         hsDao.addScore(score, dimension);
     }
 

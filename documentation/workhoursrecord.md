@@ -23,4 +23,6 @@
 | 27.4.	| 3 | added javadoc to all public methods |
 | 28.4. | 1 | fixed javadoc and added user manual |
 | 2.5. | 1 | Removed loggers, cleaned HighScoreDao and tweaked font sizes in Ui |
-| Total | 39   | | 
+| 6.5. | 3 | Ui refactoring and adding colors to buttons |
+| 7.5. | 2 | Added tests and fixed bugs |
+| Total | 44   | | 

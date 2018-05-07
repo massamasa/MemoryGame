@@ -25,4 +25,5 @@
 | 2.5. | 1 | Removed loggers, cleaned HighScoreDao and tweaked font sizes in Ui |
 | 6.5. | 3 | Ui refactoring and adding colors to buttons |
 | 7.5. | 2 | Added tests and fixed bugs |
-| Total | 44   | | 
+|      | 1 | Refactored game modes |
+| Total | 45   | | 

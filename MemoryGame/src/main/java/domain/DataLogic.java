@@ -11,8 +11,8 @@ public class DataLogic {
     /**
      * Works as a bridge to the highScoreDao. Initialises the HighScoreDao.
      */
-    public DataLogic(int maxDimension) {
-        hsDao = new HighScoreDao();
+    public DataLogic(int maxDimension, String fileName) {
+        hsDao = new HighScoreDao(fileName);
         hsDao.initializeHighScoreDao(maxDimension);
     }
 

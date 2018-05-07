@@ -47,12 +47,12 @@ public class Card {
         return found;
     }
 
-    public void setFound(boolean hasBeenFound) {
-        this.found = hasBeenFound;
+    public void setFound() {
+        this.found = true;
     }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
+    public void setChecked() {
+        this.checked = true;
     }
 
     public String getCardName() {

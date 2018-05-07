@@ -39,7 +39,7 @@ public class StartMenu {
         this.nickname = nickname;
         this.dimension = recommendedDimension;
         this.sizeIntegerLabel = new Label("" + recommendedDimension);
-        this.dataLogic = new DataLogic(maxDimension);
+        this.dataLogic = new DataLogic(maxDimension, "HighScores.db");
         this.gameMode = "Plain Integers";
         this.scene = startingScene();
     }

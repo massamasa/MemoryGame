@@ -12,8 +12,8 @@ public class CountryGameBoard extends GameBoard {
      *
      * @param dimension Dimension integer
      */
-    public CountryGameBoard(int dimension) {
-        super(dimension);
+    public CountryGameBoard(int dimension, long randomSeed) {
+        super(dimension, randomSeed);
 
     }
 
@@ -21,6 +21,7 @@ public class CountryGameBoard extends GameBoard {
     protected ArrayList<Card> createCards() {
         ArrayList<Card> cardList = new ArrayList<>();
         String[] codes = this.countryCodes();
+        Collections.shuffle(Arrays.asList(codes, super.rndSeed));
         for (int i = 1; cardList.size() < dimension * dimension; i++) {
             cardList.add(new Card(i, codes[i]));
             cardList.add(new Card(i, codes[i]));
@@ -271,7 +272,6 @@ public class CountryGameBoard extends GameBoard {
             "ZM",
             "ZW"
         };
-        Collections.shuffle(Arrays.asList(countryArray));
         return countryArray;
     }
 }

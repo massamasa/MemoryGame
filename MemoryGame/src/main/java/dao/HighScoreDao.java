@@ -16,14 +16,6 @@ public class HighScoreDao {
     private String fileName;
 
     /**
-     * HighScoreDao with a preset file name. Handles the connection between the
-     * application and an SQLite database containing score data.
-     */
-    public HighScoreDao() {
-        this.fileName = "HighScores.db";
-    }
-
-    /**
      * HighScoreDao with an alternative file name. Handles the connection
      * between the application and an SQLite database containing score data. An
      * alternate filename is necessary for testing

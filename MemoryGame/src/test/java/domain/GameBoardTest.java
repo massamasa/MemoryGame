@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class GameBoardTest {
 
-    private GameBoard logic;
+    private GameBoard gameBoard;
     private int dimension;
 
     public GameBoardTest() {
@@ -23,10 +23,14 @@ public class GameBoardTest {
     public static void tearDownClass() {
     }
 
+    /**
+     * Initialises a GameBoard with a default seed with default card positions
+     * Card numbers in this seeded array are 1st row: 2, 1 2nd row: 1, 2
+     */
     @Before
     public void setUp() {
-        dimension = 4;
-        logic = new GameBoard(dimension);
+        dimension = 2;
+        gameBoard = new GameBoard(dimension, 0);
     }
 
     @After
@@ -41,57 +45,57 @@ public class GameBoardTest {
     public void matchingCheckreturnsFalseForTheSameCoordinate() {
         int x = 0;
         int y = 0;
-        boolean first = logic.matchingCardInDifferentCoordinate(x, y);
-        boolean second = logic.matchingCardInDifferentCoordinate(x, y);
+        boolean first = gameBoard.matchingCardInDifferentCoordinate(x, y);
+        boolean second = gameBoard.matchingCardInDifferentCoordinate(x, y);
         assertFalse(first);
         assertFalse(second);
     }
 
     /**
-     *
-     * Searches for two matching cards in an array and checks the form of the
-     * String returned by foundPairsString()
-     */
-    @Test
-    public void StringBuilderWorks() {
-
-        assertEquals("Found: ", logic.foundPairsString());
-        boolean first = false;
-        boolean second = false;
-        for (int y = 0; y < dimension; y++) {
-            for (int x = 1; x < dimension; x++) {
-                first = logic.matchingCardInDifferentCoordinate(0, 0);
-                second = logic.matchingCardInDifferentCoordinate(x, y);
-                if (second) {
-                    assertEquals("Found: " + logic.getCardNameFromCard2DArray(0, 0) + ", ", logic.foundPairsString());
-                }
-            }
-        }
-
-    }
-
-    /**
-     * Searches for two matching cards in an array and checks if pairs can be
-     * found.
+     * Chooses two matching cards in the seeded Card array and checks if pairs
+     * can be found. Both cards should be 4.
      */
     @Test
     public void matchingCheckReturnsTrueIfSuccessorEqualsPrevious() {
-        int firstX = 0;
-        int firstY = 0;
-        int successes = 0;
-        boolean first = false;
-        boolean second = false;
-        for (int y = 0; y < dimension; y++) {
-            for (int x = 0; x < dimension; x++) {
-                first = logic.matchingCardInDifferentCoordinate(firstX, firstY);
-                second = logic.matchingCardInDifferentCoordinate(x, y);
-                if (second) {
-                    assertEquals(logic.getCardIntegerFromCard2DArray(firstX, firstY), logic.getCardIntegerFromCard2DArray(x, y));
-                    successes++;
-                }
-            }
-        }
-        assertEquals(1, successes);
+        boolean first = gameBoard.matchingCardInDifferentCoordinate(1, 0);
+        assertTrue(gameBoard.getCard2DArray()[0][1].hasBeenCheckedBefore());
+        boolean second = gameBoard.matchingCardInDifferentCoordinate(0, 1);
+        assertTrue(gameBoard.getCard2DArray()[1][0].hasBeenCheckedBefore());
+
+        assertFalse(first);
+        assertTrue(second);
+
+        assertTrue(gameBoard.getCard2DArray()[0][1].hasBeenFound());
+        assertTrue(gameBoard.getCard2DArray()[1][0].hasBeenFound());
+        assertEquals("Found: 1, ", this.gameBoard.foundPairsString());
+    }
+
+    @Test
+    public void penaltyWorks() {
+        gameBoard.matchingCardInDifferentCoordinate(0, 0); // top 2
+        assertEquals(0, this.gameBoard.getCardCheckedPenalty());
+        gameBoard.matchingCardInDifferentCoordinate(0, 1); // bot 1
+        assertEquals(0, this.gameBoard.getCardCheckedPenalty());
+        gameBoard.matchingCardInDifferentCoordinate(1, 1); // bot 2
+        assertEquals(0, this.gameBoard.getCardCheckedPenalty());
+        gameBoard.matchingCardInDifferentCoordinate(0, 1); // bot 1
+        assertEquals(1, this.gameBoard.getCardCheckedPenalty());
+        gameBoard.matchingCardInDifferentCoordinate(1, 0); // top 1
+        assertEquals(1, this.gameBoard.getCardCheckedPenalty());
+        gameBoard.matchingCardInDifferentCoordinate(1, 1); // bot 2
+        assertEquals(2, this.gameBoard.getCardCheckedPenalty());
+
+    }
+
+    @Test
+    public void gameCanEnd() {
+        gameBoard.matchingCardInDifferentCoordinate(0, 0);
+        gameBoard.matchingCardInDifferentCoordinate(1, 1);
+        gameBoard.matchingCardInDifferentCoordinate(0, 1);
+        assertFalse(gameBoard.foundAllPairs());
+        gameBoard.matchingCardInDifferentCoordinate(1, 0);
+        assertTrue(gameBoard.foundAllPairs());
+        assertEquals("Found: 2, 1, ", gameBoard.foundPairsString());
     }
 
 }

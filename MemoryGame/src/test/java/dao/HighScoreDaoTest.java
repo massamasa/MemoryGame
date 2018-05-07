@@ -56,7 +56,6 @@ public class HighScoreDaoTest {
         assertTrue(scores.get(0).getTime() == seconds);
     }
 
-    
     @Test
     public void canAddScoreToMax() {
         double seconds = 240.9;
@@ -66,6 +65,7 @@ public class HighScoreDaoTest {
         assertEquals("THRILLHO", scores.get(0).getNickname());
         assertTrue(scores.get(0).getTime() == seconds);
     }
+
     /**
      * Tests the sorting of the scores.
      */

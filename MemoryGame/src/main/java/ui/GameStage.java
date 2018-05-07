@@ -3,6 +3,8 @@ package ui;
 import domain.CountryGameBoard;
 import domain.GameBoard;
 import domain.Score;
+import java.sql.Time;
+import java.time.LocalTime;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,10 +58,12 @@ public class GameStage {
         this.nickname = nickname;
         this.timer = 0;
         this.firstMemoryButton = newBlankCardButton();
+        long timeSeed = Time.valueOf(LocalTime.now()).getTime();
+//        long timeSeed = 0
         if (gameType == 1) {
-            this.gameBoard = new CountryGameBoard(dimension);
+            this.gameBoard = new CountryGameBoard(dimension, timeSeed);
         } else {
-            this.gameBoard = new GameBoard(dimension);
+            this.gameBoard = new GameBoard(dimension, timeSeed);
         }
     }
 

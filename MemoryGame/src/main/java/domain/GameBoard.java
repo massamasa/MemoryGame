@@ -2,10 +2,10 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class GameBoard {
 
-    private int[][] integer2DArray;
     protected int dimension;
     private int previousX;
     private int previousY;
@@ -14,21 +14,24 @@ public class GameBoard {
     private StringBuilder pairSb;
     private int penalty;
     private final Card[][] card2DArray;
+    protected long rndSeed;
 
     /**
      * GameBoard with integers as cards. Contains the logic required in the
      * gameStage
      *
      * @see ui.GameStage
-     * @param dimension rectangular dimensions of the table of cards. 2,4 or 6
+     * @param dimension rectangular dimensions of the table of cards.
+     * @param randomSeed seed for generating the seemingly random Card array.
      */
-    public GameBoard(int dimension) {
+    public GameBoard(int dimension, long randomSeed) {
         this.pairSb = new StringBuilder("Found: ");
         this.foundPairs = new ArrayList<>();
         this.previousX = -2;
         this.previousY = -2;
         this.dimension = dimension;
-        this.card2DArray = createRectangular2DCardArray();
+        this.rndSeed = randomSeed;
+        this.card2DArray = createRectangular2DCardArray(new Random(rndSeed));
     }
 
     public int getCardCheckedPenalty() {
@@ -63,9 +66,9 @@ public class GameBoard {
         return cardList;
     }
 
-    private Card[][] createRectangular2DCardArray() {
+    private Card[][] createRectangular2DCardArray(Random random) {
         ArrayList<Card> cardList = createCards();
-        Collections.shuffle(cardList);
+        Collections.shuffle(cardList, random);
 
         Card[][] newCard2DArray = new Card[dimension][dimension];
         int i = 0;
@@ -81,9 +84,8 @@ public class GameBoard {
     /**
      * Checks if the cards in the previously and currently specified different
      * coordinates are corresponding by card number. Adds to the penalty counter
-     * if and only if 1. if the previous card wasn't part of a found pair 2. this
-     * card is not a match with the previous and 3. this card has been checked
-     * before.
+     * if and only if 1. this card is not a match with the previous and 2. this
+     * card has been checked before.
      *
      * @param x
      * @param y
@@ -91,27 +93,28 @@ public class GameBoard {
      * @return false if different or the same coordinate is entered
      */
     public boolean matchingCardInDifferentCoordinate(int x, int y) {
+        Card succeedingCard = this.card2DArray[y][x];
         if (sameAsPrevious(x, y)) {
             return false;
         }
         if (this.previousX >= 0 && this.previousY >= 0) {
-            Card succeedingCard = this.card2DArray[y][x];
             int succ = succeedingCard.getCardNumber();
             Card previousCard = this.card2DArray[previousY][previousX];
             int prev = previousCard.getCardNumber();
             if (succ == prev) {
-                previousCard.setFound(true);
-                succeedingCard.setFound(true);
+                previousCard.setFound();
+                succeedingCard.setFound();
                 changePreviousXY(-1, -1);
                 this.foundPairs.add(succ);
                 pairSb.append(succeedingCard.getCardName() + ", ");
+                succeedingCard.setChecked();
                 return true;
-            } else if (this.previousY != -1 && this.previousX != -1 && succeedingCard.hasBeenCheckedBefore()) {
-                penalty++;
             }
-            succeedingCard.setChecked(true);
         }
-
+        if (succeedingCard.hasBeenCheckedBefore()) {
+            penalty++;
+        }
+        succeedingCard.setChecked();
         changePreviousXY(x, y);
         return false;
     }
@@ -135,6 +138,13 @@ public class GameBoard {
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return Seemingly random Card Array
+     */
+    public Card[][] getCard2DArray() {
+        return card2DArray;
     }
 
 }

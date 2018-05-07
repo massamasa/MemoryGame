@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class ScoreTest {
 
@@ -29,6 +30,7 @@ public class ScoreTest {
      * Tests an empty nickname and expects the set nickname String to contain
      * "ANON".
      */
+    @Test
     public void nicknameLength0() {
         Score score = new Score("", 2.0);
         assertEquals("ANON", score.getNickname());
@@ -39,6 +41,7 @@ public class ScoreTest {
      * Tests a 7 character nickname and expects the set nickname to contain an
      * identical String that is 7 characters long.
      */
+    @Test
     public void nicknameLength7() {
         Score score = new Score("THRILLH", 2.0);
         assertEquals("THRILLH", score.getNickname());
@@ -48,6 +51,7 @@ public class ScoreTest {
      * Tests an 8 character nickname and expects the set nickname to contain an
      * identical String that is 8 characters long.
      */
+    @Test
     public void nicknameLength8() {
         Score score = new Score("THRILLHO", 2.0);
         assertEquals("THRILLHO", score.getNickname());
@@ -57,6 +61,7 @@ public class ScoreTest {
      * Tests a 9 character nickname and expects the set nickname to contain the
      * first 8 characters of the String.
      */
+    @Test
     public void nicknameLength9() {
         Score score = new Score("THRILLHOU", 2.0);
         assertEquals("THRILLHO", score.getNickname());
@@ -66,6 +71,7 @@ public class ScoreTest {
      * Tests a 12 character nickname and expects the set nickname to contain the
      * first 8 characters of the String.
      */
+    @Test
     public void nicknameLength12() {
         Score score = new Score("THRILLHOUSE", 2.0);
         assertEquals("THRILLHO", score.getNickname());

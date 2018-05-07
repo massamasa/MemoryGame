@@ -1,6 +1,5 @@
 package ui;
 
-import domain.CountryGameBoard;
 import domain.GameBoard;
 import domain.Score;
 import java.sql.Time;
@@ -59,12 +58,8 @@ public class GameStage {
         this.timer = 0;
         this.firstMemoryButton = newBlankCardButton();
         long timeSeed = Time.valueOf(LocalTime.now()).getTime();
-//        long timeSeed = 0
-        if (gameType == 1) {
-            this.gameBoard = new CountryGameBoard(dimension, timeSeed);
-        } else {
-            this.gameBoard = new GameBoard(dimension, timeSeed);
-        }
+//        long timeSeed = 0;
+        this.gameBoard = new GameBoard(dimension, timeSeed, gameType);
     }
 
     /**

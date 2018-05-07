@@ -84,7 +84,8 @@ public class StartMenu {
     private ComboBox modeSelectDropdown() {
         ObservableList<String> modeList = FXCollections.observableArrayList(
                 "Plain Integers",
-                "Country Codes"
+                "Country Codes",
+                "Emojis"
         );
         ComboBox modeCBox = new ComboBox(modeList);
 
@@ -122,6 +123,8 @@ public class StartMenu {
             int gameType = 0;
             if (this.gameMode.equals("Country Codes")) {
                 gameType = 1;
+            } else if (this.gameMode.equals("Emojis")){
+                gameType = 2;
             }
             this.primaryStage.setScene(new GameStage(gameType, this.dimension, nickname, this).gameScene());
             primaryStage.centerOnScreen();

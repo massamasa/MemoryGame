@@ -30,11 +30,20 @@ public class GameBoardTest {
     @Before
     public void setUp() {
         dimension = 2;
-        gameBoard = new GameBoard(dimension, 0);
+        gameBoard = new GameBoard(dimension, 0, 0);
     }
 
     @After
     public void tearDown() {
+    }
+
+    /**
+     * This tests mainly for IndexOutOfBoundsException
+     */
+    @Test
+    public void otherGameModesDoNotCrash() {
+        this.gameBoard = new GameBoard(8, 0, 1);
+        this.gameBoard = new GameBoard(8, 0, 2);
     }
 
     /**

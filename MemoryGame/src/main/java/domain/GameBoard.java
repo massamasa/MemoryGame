@@ -1,6 +1,8 @@
 package domain;
 
+import dao.CardNameArrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -10,11 +12,12 @@ public class GameBoard {
     private int previousX;
     private int previousY;
     private int pairsRight;
-    private ArrayList<Integer> foundPairs;
+    private int foundPairs;
     private StringBuilder pairSb;
     private int penalty;
     private final Card[][] card2DArray;
     protected long rndSeed;
+    private Random random;
 
     /**
      * GameBoard with integers as cards. Contains the logic required in the
@@ -23,15 +26,27 @@ public class GameBoard {
      * @see ui.GameStage
      * @param dimension rectangular dimensions of the table of cards.
      * @param randomSeed seed for generating the seemingly random Card array.
+     * @param gameType Type of game signified by integer. Defaults to playing
+     * with plain integers.
      */
-    public GameBoard(int dimension, long randomSeed) {
+    public GameBoard(int dimension, long randomSeed, int gameType) {
+        initialiseVariables(dimension, randomSeed);
+        if (gameType == 1) {
+            this.card2DArray = createRectangular2DCardArray(new CardNameArrays().countryCodes());
+        } else if (gameType == 2) {
+            this.card2DArray = createRectangular2DCardArray(new CardNameArrays().emojiArray());
+        } else {
+            this.card2DArray = createRectangular2DCardArray();
+        }
+    }
+
+    private void initialiseVariables(int dimension, long randomSeed) {
         this.pairSb = new StringBuilder("Found: ");
-        this.foundPairs = new ArrayList<>();
+        this.foundPairs = 0;
         this.previousX = -2;
         this.previousY = -2;
         this.dimension = dimension;
-        this.rndSeed = randomSeed;
-        this.card2DArray = createRectangular2DCardArray(new Random(rndSeed));
+        this.random = new Random(randomSeed);
     }
 
     public int getCardCheckedPenalty() {
@@ -39,7 +54,7 @@ public class GameBoard {
     }
 
     public boolean foundAllPairs() {
-        return foundPairs.size() == dimension * dimension / 2;
+        return foundPairs >= dimension * dimension / 2;
     }
 
     public int getCardIntegerFromCard2DArray(int x, int y) {
@@ -55,21 +70,45 @@ public class GameBoard {
      *
      * @return ArrayList containing cards
      */
-    protected ArrayList<Card> createCards() {
+    private ArrayList<Card> cardList() {
         ArrayList<Card> cardList = new ArrayList<>();
-
         for (int i = 1; cardList.size() < dimension * dimension; i++) {
             cardList.add(new Card(i));
             cardList.add(new Card(i));
         }
-
+        Collections.shuffle(cardList, random);
         return cardList;
     }
 
-    private Card[][] createRectangular2DCardArray(Random random) {
-        ArrayList<Card> cardList = createCards();
+    private ArrayList<Card> cardList(String[] arrayWithCardNames) {
+        ArrayList<Card> cardList = new ArrayList<>();
+        String[] codes = arrayWithCardNames;
+        Collections.shuffle(Arrays.asList(codes, rndSeed));
+        for (int i = 1; cardList.size() < dimension * dimension; i++) {
+            cardList.add(new Card(i, codes[i]));
+            cardList.add(new Card(i, codes[i]));
+        }
+        Collections.shuffle(cardList, random);
+        return cardList;
+    }
+
+    private Card[][] createRectangular2DCardArray(String[] arrayWithCardNames) {
+        ArrayList<Card> cardList = cardList(arrayWithCardNames);
         Collections.shuffle(cardList, random);
 
+        Card[][] newCard2DArray = new Card[dimension][dimension];
+        int i = 0;
+        for (int y = 0; y < dimension; y++) {
+            for (int x = 0; x < dimension; x++) {
+                newCard2DArray[y][x] = cardList.get(i);
+                i++;
+            }
+        }
+        return newCard2DArray;
+    }
+
+    private Card[][] createRectangular2DCardArray() {
+        ArrayList<Card> cardList = cardList();
         Card[][] newCard2DArray = new Card[dimension][dimension];
         int i = 0;
         for (int y = 0; y < dimension; y++) {
@@ -105,8 +144,8 @@ public class GameBoard {
                 previousCard.setFound();
                 succeedingCard.setFound();
                 changePreviousXY(-1, -1);
-                this.foundPairs.add(succ);
-                pairSb.append(succeedingCard.getCardName() + ", ");
+                this.foundPairs++;
+                this.pairSb.append(succeedingCard.getCardName()).append(", ");
                 succeedingCard.setChecked();
                 return true;
             }
@@ -141,7 +180,7 @@ public class GameBoard {
     }
 
     /**
-     * @return Seemingly random Card Array
+     * @return the Card Array
      */
     public Card[][] getCard2DArray() {
         return card2DArray;

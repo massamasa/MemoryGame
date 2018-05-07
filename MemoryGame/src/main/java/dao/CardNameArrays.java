@@ -1,36 +1,8 @@
-package domain;
+package dao;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+public class CardNameArrays {
 
-public class CountryGameBoard extends GameBoard {
-
-    /**
-     * An alternate GameBoard extension to play with country codes instead of
-     * plain integers.
-     *
-     * @param dimension Dimension integer
-     */
-    public CountryGameBoard(int dimension, long randomSeed) {
-        super(dimension, randomSeed);
-
-    }
-
-    @Override
-    protected ArrayList<Card> createCards() {
-        ArrayList<Card> cardList = new ArrayList<>();
-        String[] codes = this.countryCodes();
-        Collections.shuffle(Arrays.asList(codes, super.rndSeed));
-        for (int i = 1; cardList.size() < dimension * dimension; i++) {
-            cardList.add(new Card(i, codes[i]));
-            cardList.add(new Card(i, codes[i]));
-        }
-
-        return cardList;
-    }
-
-    private String[] countryCodes() {
+    public String[] countryCodes() {
         String[] countryArray = new String[]{
             "AF",
             "AL",
@@ -273,5 +245,9 @@ public class CountryGameBoard extends GameBoard {
             "ZW"
         };
         return countryArray;
+    }
+
+    public String[] emojiArray() {
+        return new String[]{"✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"};
     }
 }

@@ -20,7 +20,8 @@ Program Logic classes are mostly tested through their use in [domain.GameBoard](
 
 ## Test coverage
 Not including the user interface package, the test coverage of the application is 98% for instructions and 97% for branches.
-![test coverage](insert url)
+
+![test coverage](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/imagesfortestingdocument/testcoverage.JPG)
 
 Some getters were left untested because their testing was found trivial.
 

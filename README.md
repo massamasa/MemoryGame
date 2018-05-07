@@ -1,5 +1,6 @@
 # Memory Game
-A practice programming project for the course Ohjelmistotekniikan menetelmät at the University Of Helsinki. The program is a memory game with the objective to click "cards" (buttons) to flip them and find a match in the fastest time. High Scores are stored in a database. Hold the S-key to show all cards and to speed up the timer to triple speed as a penalty. Try to be accurate as well. If you make a mistake clicking a pair of cards that have already been checked, you will face a one second penalty each time.
+A practice programming project for the course Ohjelmistotekniikan menetelmät at the University Of Helsinki. The program is a memory game with the objective to click "cards" (buttons) to flip them and find a match in the fastest time. High Scores are stored in a database. Hold the S-key to show all cards and to speed up the timer to triple speed as a penalty. Try to be accurate as well. If you make a mistake clicking a card that has already been checked and it does not form a pair with the previous card, you will face a one second penalty each time.
+
 ## Documentation
 
 [User manual (käyttöohje)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/usermanual.md)
@@ -10,6 +11,8 @@ A practice programming project for the course Ohjelmistotekniikan menetelmät at
 [Record of working hours (työaikakirjanpito)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/workhoursrecord.md)
 
 [Architecture document (arkkitehtuuri)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/architecturedocument.md)
+
+[Testing document (testausdokumentti)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/testing.md)
 
 ## Command line functions
 
@@ -43,5 +46,6 @@ mvn javadoc:javadoc
 Javadoc can be viewed by using a web browser to open file at target/site/apidocs/index.html
 
 ## Releases
+- [v1.2](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.2)
 - [v1.1](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.1)
 - [v1.0](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.0)

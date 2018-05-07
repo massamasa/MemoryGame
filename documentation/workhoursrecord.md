@@ -26,4 +26,5 @@
 | 6.5. | 3 | Ui refactoring and adding colors to buttons |
 | 7.5. | 2 | Added tests and fixed bugs |
 |      | 1 | Refactored game modes |
-| Total | 45   | | 
+|      | 1 | Testing document created and other documentation tweaked |
+| Total | 47   | | 

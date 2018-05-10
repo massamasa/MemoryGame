@@ -46,6 +46,7 @@ mvn javadoc:javadoc
 Javadoc can be viewed by using a web browser to open file at target/site/apidocs/index.html
 
 ## Releases
+- [v1.22 (loppupalautus)](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v.1.22)
 - [v1.2](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.2)
 - [v1.1](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.1)
 - [v1.0](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.0)

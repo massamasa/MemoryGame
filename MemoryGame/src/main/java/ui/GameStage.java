@@ -21,7 +21,6 @@ public class GameStage {
     private StartMenu startMenuToGoBackto;
     private Button firstMemoryButton;
     private int timer;
-    private int penalty;
     private boolean spaceDown;
     private int dimension;
     private GameBoard gameBoard;
@@ -58,7 +57,6 @@ public class GameStage {
         this.timer = 0;
         this.firstMemoryButton = newBlankCardButton();
         long timeSeed = Time.valueOf(LocalTime.now()).getTime();
-//        long timeSeed = 0;
         this.gameBoard = new GameBoard(dimension, timeSeed, gameType);
     }
 

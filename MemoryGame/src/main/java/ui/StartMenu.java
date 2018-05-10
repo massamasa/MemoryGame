@@ -123,7 +123,7 @@ public class StartMenu {
             int gameType = 0;
             if (this.gameMode.equals("Country Codes")) {
                 gameType = 1;
-            } else if (this.gameMode.equals("Emojis")){
+            } else if (this.gameMode.equals("Emojis")) {
                 gameType = 2;
             }
             this.primaryStage.setScene(new GameStage(gameType, this.dimension, nickname, this).gameScene());

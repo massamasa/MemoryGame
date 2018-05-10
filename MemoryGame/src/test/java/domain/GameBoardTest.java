@@ -38,12 +38,15 @@ public class GameBoardTest {
     }
 
     /**
-     * This tests mainly for IndexOutOfBoundsException
+     * If this test fails, other tests dependent on the set position of Cards
+     * will fail also.
      */
     @Test
-    public void otherGameModesDoNotCrash() {
-        this.gameBoard = new GameBoard(8, 0, 1);
-        this.gameBoard = new GameBoard(8, 0, 2);
+    public void CardsAreInExpectedPosition() {
+        assertTrue(this.gameBoard.getCardIntegerFromCard2DArray(0, 0) == 2);
+        assertTrue(this.gameBoard.getCardIntegerFromCard2DArray(0, 1) == 1);
+        assertTrue(this.gameBoard.getCardIntegerFromCard2DArray(1, 1) == 2);
+        assertTrue(this.gameBoard.getCardIntegerFromCard2DArray(1, 0) == 1);
     }
 
     /**
@@ -97,14 +100,16 @@ public class GameBoardTest {
     }
 
     @Test
-    public void gameCanEnd() {
-        gameBoard.matchingCardInDifferentCoordinate(0, 0);
-        gameBoard.matchingCardInDifferentCoordinate(1, 1);
-        gameBoard.matchingCardInDifferentCoordinate(0, 1);
-        assertFalse(gameBoard.foundAllPairs());
-        gameBoard.matchingCardInDifferentCoordinate(1, 0);
-        assertTrue(gameBoard.foundAllPairs());
-        assertEquals("Found: 2, 1, ", gameBoard.foundPairsString());
+    public void gameCanEndInAllGameModes() {
+        for (int i = 0; i <= 3; i++) {
+            this.gameBoard = new GameBoard(2, 0, i);
+            gameBoard.matchingCardInDifferentCoordinate(0, 0);
+            gameBoard.matchingCardInDifferentCoordinate(1, 1);
+            gameBoard.matchingCardInDifferentCoordinate(0, 1);
+            assertFalse(gameBoard.foundAllPairs());
+            gameBoard.matchingCardInDifferentCoordinate(1, 0);
+            assertTrue(gameBoard.foundAllPairs());
+        }
     }
 
 }

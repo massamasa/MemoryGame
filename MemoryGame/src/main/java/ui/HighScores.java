@@ -13,7 +13,7 @@ public class HighScores {
 
     private Stage primaryStage;
     private StartMenu startMenuToGoBackTo;
-    private final int dimension;
+    private int dimension;
 
     /**
      * Class for controlling the High Score view

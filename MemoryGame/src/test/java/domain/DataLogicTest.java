@@ -18,26 +18,26 @@ import org.junit.Test;
  * @author mattiost
  */
 public class DataLogicTest {
-    
+
     private DataLogic dataLogic;
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         this.dataLogic = new DataLogic(4, "HighScoresTesting.db");
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void canAddScoresAndFetchThem() {
         dataLogic.addScore(4, new Score("matti", 30.0));
@@ -46,5 +46,5 @@ public class DataLogicTest {
         ArrayList<Score> scoreList = dataLogic.getScoreList(4);
         assertEquals(3, scoreList.size());
     }
-    
+
 }

@@ -11,7 +11,6 @@ public class GameBoard {
     protected int dimension;
     private int previousX;
     private int previousY;
-    private int pairsRight;
     private int foundPairs;
     private StringBuilder pairSb;
     private int penalty;
@@ -133,27 +132,21 @@ public class GameBoard {
      */
     public boolean matchingCardInDifferentCoordinate(int x, int y) {
         Card succeedingCard = this.card2DArray[y][x];
-        if (sameAsPrevious(x, y)) {
+        if (sameCoordinatesAsPrevious(x, y)) {
             return false;
         }
         if (this.previousX >= 0 && this.previousY >= 0) {
-            int succ = succeedingCard.getCardNumber();
             Card previousCard = this.card2DArray[previousY][previousX];
-            int prev = previousCard.getCardNumber();
-            if (succ == prev) {
-                previousCard.setFound();
-                succeedingCard.setFound();
-                changePreviousXY(-1, -1);
-                this.foundPairs++;
-                this.pairSb.append(succeedingCard.getCardName()).append(", ");
-                succeedingCard.setChecked();
+            if (succeedingCard.getCardNumber() == previousCard.getCardNumber()) {
+                addToFoundPairs(succeedingCard, previousCard);
                 return true;
             }
         }
         if (succeedingCard.hasBeenCheckedBefore()) {
             penalty++;
+        } else {
+            succeedingCard.setChecked();
         }
-        succeedingCard.setChecked();
         changePreviousXY(x, y);
         return false;
     }
@@ -172,7 +165,7 @@ public class GameBoard {
         return pairSb.toString();
     }
 
-    private boolean sameAsPrevious(int x, int y) {
+    private boolean sameCoordinatesAsPrevious(int x, int y) {
         if (this.previousX == x && this.previousY == y) {
             return true;
         }
@@ -184,6 +177,15 @@ public class GameBoard {
      */
     public Card[][] getCard2DArray() {
         return card2DArray;
+    }
+
+    private void addToFoundPairs(Card succeedingCard, Card previousCard) {
+        succeedingCard.setChecked();
+        previousCard.setFound();
+        succeedingCard.setFound();
+        changePreviousXY(-1, -1);
+        this.foundPairs++;
+        this.pairSb.append(succeedingCard.getCardName()).append(", ");
     }
 
 }

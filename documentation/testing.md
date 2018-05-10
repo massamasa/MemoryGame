@@ -23,7 +23,7 @@ Not including the user interface package, the test coverage of the application i
 
 ![test coverage](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/imagesfortestingdocument/testcoverage.JPG)
 
-Some getters were left untested because their testing was found trivial.
+Some getters were left untested because they are used only to pass on information to the User Intergace.
 
 ## System testing
 System testing has been tested manually for Windows 10 and Linux operating systems.

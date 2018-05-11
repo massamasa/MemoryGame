@@ -30,7 +30,8 @@ public class DataLogic {
     /**
      * Adds a score score to the database.
      *
-     * @param dimension Dimension 2, 4, 6
+     * @param dimension Dimension
+     * @param score Score object to add
      */
     public void addScore(int dimension, Score score) {
         hsDao.addScore(score, dimension);

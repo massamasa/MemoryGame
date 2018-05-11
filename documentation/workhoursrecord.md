@@ -27,4 +27,6 @@
 | 7.5. | 2 | Added tests and fixed bugs |
 |      | 1 | Refactored game modes |
 |      | 1 | Testing document created and other documentation tweaked |
-| Total | 47   | | 
+| 10.5. | 2 | Final release, refactored code, added tests |
+| 11.5. | 1 | Small adjustments to Javadoc and finalizing project, final manual testing |
+| Total | 50   | | 

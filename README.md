@@ -1,5 +1,5 @@
 # Memory Game
-A practice programming project for the course Software Engineering at the University of Helsinki. The program is a memory game with the objective to click "cards" (buttons) to flip them and find a match in the fastest time. High Scores are stored in a database. Hold the S-key to show all cards and to speed up the timer to triple speed as a penalty. Try to be accurate as well. If you make a mistake clicking a card that has already been checked and it does not form a pair with the previous card, you will face a one second penalty each time.
+A practice programming project for the course Methods for Software Engineering at the University of Helsinki. The program is a memory game with the objective to click "cards" (buttons) to flip them and find a match in the fastest time. High Scores are stored in a database. Hold the S-key to show all cards and to speed up the timer to triple speed as a penalty. Try to be accurate as well. If you make a mistake clicking a card that has already been checked and it does not form a pair with the previous card, you will face a one second penalty each time.
 
 [Screen capture demonstrating gameplay (v1.23)](https://www.youtube.com/watch?v=hqTd1OcjmQI)
 

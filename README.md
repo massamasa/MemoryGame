@@ -5,16 +5,15 @@ A practice programming project for the course Methods for Software Engineering a
 
 ## Documentation
 
-[User manual (käyttöohje)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/usermanual.md)
+[User manual](https://github.com/massamasa/MemoryGame/blob/master/documentation/usermanual.md)
 
+[Requirements document](https://github.com/massamasa/MemoryGame/blob/master/documentation/requirementsdocument.md)
 
-[Requirements document (määrittelydokumentti)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/requirementsdocument.md)
+[Record of working hours](https://github.com/massamasa/MemoryGameblob/master/documentation/workhoursrecord.md)
 
-[Record of working hours (työaikakirjanpito)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/workhoursrecord.md)
+[Architecture document](https://github.com/massamasa/MemoryGame/blob/master/documentation/architecturedocument.md)
 
-[Architecture document (arkkitehtuuri)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/architecturedocument.md)
-
-[Testing document (testausdokumentti)](https://github.com/massamasa/otm-harjoitustyo/blob/master/documentation/testing.md)
+[Testing document](https://github.com/massamasa/MemoryGame/blob/master/documentation/testing.md)
 
 ## Command line functions
 
@@ -33,7 +32,7 @@ An executable .jar file can be generated with command
 mvn package
 ```
 ### Checkstyle
-Checkstyle tests defined in file [checkstyle.xml](https://github.com/massamasa/otm-harjoitustyo/blob/master/MemoryGame/checkstyle.xml) can be performed with the command
+Checkstyle tests defined in file [checkstyle.xml](https://github.com/massamasa/MemoryGame/blob/master/MemoryGame/checkstyle.xml) can be performed with the command
 ```
 mvn jxr:jxr checkstyle:checkstyle
 ```
@@ -48,7 +47,7 @@ mvn javadoc:javadoc
 Javadoc can be viewed by using a web browser to open file at target/site/apidocs/index.html
 
 ## Releases
-- [v1.23 (loppupalautus)](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.23)
-- [v1.2](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.2)
-- [v1.1](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.1)
-- [v1.0](https://github.com/massamasa/otm-harjoitustyo/releases/tag/v1.0)
+- [v1.23 (Final release)](https://github.com/massamasa/MemoryGame/releases/tag/v1.23)
+- [v1.2](https://github.com/massamasa/MemoryGame/releases/tag/v1.2)
+- [v1.1](https://github.com/massamasa/MemoryGame/releases/tag/v1.1)
+- [v1.0](https://github.com/massamasa/MemoryGame/releases/tag/v1.0)
